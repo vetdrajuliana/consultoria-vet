@@ -6,8 +6,13 @@ export default async function Servicos() {
     .select('*')
 
   if (error) {
-    return <p>Erro ao carregar serviços</p>
-  }
+  return (
+    <div style={{ padding: '40px', color: 'red' }}>
+      <h2>Erro ao carregar serviços</h2>
+      <p>{error.message}</p>
+    </div>
+  )
+}
 
   return (
     <div
