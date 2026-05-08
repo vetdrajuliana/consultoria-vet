@@ -13,7 +13,6 @@ export default async function Servicos() {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
       {servicos?.map((item) => (
         <div key={item.id} style={{ border: '1px solid #ddd', borderRadius: '10px', overflow: 'hidden' }}>
-          
           <img 
             src={item.imagem_url} 
             alt={item.nome} 
@@ -24,7 +23,6 @@ export default async function Servicos() {
             <h3>{item.nome}</h3>
             <p>{item.descricao}</p>
           </div>
-
         </div>
       ))}
     </div>
