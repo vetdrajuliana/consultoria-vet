@@ -17,12 +17,10 @@ export default async function Servicos() {
   }
 
   return (
-    <main style={{ padding: '50px', background: '#f5f5f5', minHeight: '100vh' }}>
-      <h1 style={{ fontSize: '42px', marginBottom: '40px', color: '#14532d', textAlign: 'center' }}>
-        Nossos Serviços
-      </h1>
+    <main className="servicos-page">
+      <h1>Nossos Serviços</h1>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '25px' }}>
+      <div className="servicos-grid">
         {servicos?.map((item) => (
           <div key={item.id ?? item.nome} className="card-servico">
             <img src={item.imagem_url} alt={item.nome} />
@@ -36,6 +34,25 @@ export default async function Servicos() {
       </div>
 
       <style>{`
+        .servicos-page {
+          padding: 50px;
+          background: #f5f5f5;
+          min-height: 100vh;
+        }
+
+        .servicos-page h1 {
+          font-size: 42px;
+          margin-bottom: 40px;
+          color: #14532d;
+          text-align: center;
+        }
+
+        .servicos-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 25px;
+        }
+
         .card-servico {
           position: relative;
           height: 350px;
@@ -87,6 +104,48 @@ export default async function Servicos() {
         .card-servico:hover .overlay p {
           opacity: 1;
           transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+          .servicos-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 600px) {
+          .servicos-page {
+            padding: 25px 18px;
+          }
+
+          .servicos-page h1 {
+            font-size: 32px;
+            margin-bottom: 25px;
+          }
+
+          .servicos-grid {
+            grid-template-columns: 1fr;
+            gap: 22px;
+          }
+
+          .card-servico {
+            height: 300px;
+            border-radius: 18px;
+          }
+
+          .overlay {
+            background: rgba(0,0,0,0.65);
+            padding: 22px;
+          }
+
+          .overlay h2 {
+            font-size: 23px;
+          }
+
+          .overlay p {
+            opacity: 1;
+            transform: translateY(0);
+            font-size: 15px;
+          }
         }
       `}</style>
     </main>
