@@ -10,31 +10,47 @@ export default function Home() {
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        <div className="absolute inset-0 bg-black/55"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
 
         <div className="relative z-10 px-8 md:px-20 text-white max-w-4xl flex flex-col justify-center h-full">
 
-          <p className="text-sm md:text-base uppercase tracking-[5px] text-green-200 font-light">
-            Consultoria Veterinária Estratégica
+          <p
+            className="text-sm md:text-base uppercase tracking-[4px] font-light text-[#d6c6a5]"
+            style={{
+              textShadow: '0 3px 12px rgba(0,0,0,0.9)'
+            }}
+          >
+            Dra Juliana Moraes — Médica Veterinária — CRMV/GO 14194
           </p>
 
           <h1
             className="mt-5 text-4xl md:text-6xl leading-tight font-light"
-            style={{ fontFamily: 'Georgia, serif' }}
+            style={{
+              fontFamily: 'Georgia, serif',
+              textShadow: '0 5px 20px rgba(0,0,0,0.95)'
+            }}
           >
             Resultados reais
             <br />
             para sua produção
           </h1>
 
-          <p className="mt-6 text-base md:text-xl text-gray-200 leading-8 max-w-2xl">
+          <p
+            className="mt-6 text-base md:text-xl text-gray-100 leading-8 max-w-2xl"
+            style={{
+              textShadow: '0 3px 12px rgba(0,0,0,0.9)'
+            }}
+          >
             Serviços Veterinários para Animais de Grande Porte.
           </p>
 
           <a
             href="https://wa.me/5562998577635"
             target="_blank"
-            className="inline-block mt-8 w-fit border border-white px-8 py-4 rounded-full text-base md:text-lg hover:bg-white hover:text-black transition-all duration-300"
+            className="inline-block mt-8 w-fit border border-white px-8 py-4 rounded-full text-base md:text-lg hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm"
+            style={{
+              boxShadow: '0 8px 25px rgba(0,0,0,0.35)'
+            }}
           >
             Solicitar Serviços
           </a>
@@ -48,7 +64,9 @@ export default function Home() {
 
           <h2
             className="text-4xl md:text-5xl text-green-900 text-center font-light"
-            style={{ fontFamily: 'Georgia, serif' }}
+            style={{
+              fontFamily: 'Georgia, serif'
+            }}
           >
             Resultados e Depoimentos
           </h2>
