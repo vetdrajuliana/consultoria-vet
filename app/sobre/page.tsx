@@ -2,7 +2,7 @@ export default function Sobre() {
   return (
     <main className="bg-[#f5f5f5] min-h-screen">
 
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[70vh] max-w-6xl mx-auto rounded-b-[40px] overflow-hidden flex items-center justify-center">
         <img
           src="https://images.unsplash.com/photo-1500595046743-cd271d694d30"
           alt="Veterinária"
