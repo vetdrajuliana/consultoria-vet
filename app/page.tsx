@@ -14,14 +14,28 @@ export default function Home() {
 
         <div className="relative z-10 px-8 md:px-20 text-white max-w-4xl flex flex-col justify-center h-full">
 
-          <p
-            className="text-sm md:text-base uppercase tracking-[4px] font-light text-[#d6c6a5]"
-            style={{
-              textShadow: '0 3px 12px rgba(0,0,0,0.9)'
-            }}
-          >
-            Dra Juliana Moraes — Médica Veterinária — CRMV/GO 14194
-          </p>
+        <div
+  className="text-[#e7d7b6]"
+  style={{
+    textShadow: '0 4px 18px rgba(0,0,0,0.95)'
+  }}
+>
+  <h2
+    className="text-2xl md:text-4xl font-bold leading-tight"
+    style={{
+      fontFamily: 'Georgia, serif',
+      letterSpacing: '1px'
+    }}
+  >
+    Dra Juliana Moraes
+  </h2>
+
+  <p
+    className="mt-2 text-sm md:text-lg uppercase tracking-[3px] font-semibold"
+  >
+    Médica Veterinária — CRMV/GO 14194
+  </p>
+</div>
 
           <h1
             className="mt-5 text-4xl md:text-6xl leading-tight font-light"
