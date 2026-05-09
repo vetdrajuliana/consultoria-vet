@@ -13,12 +13,11 @@ export default function Sobre() {
 
         <div className="relative z-10 text-center px-6">
           <h1 className="text-5xl md:text-7xl font-bold text-white">
-            Sobre Nós
+            Sobre
           </h1>
 
           <p className="mt-6 text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto">
-            Consultoria veterinária estratégica focada em saúde animal,
-            produtividade e resultados reais no campo.
+            Serviços Veterinários para Animais de Grande Porte
           </p>
         </div>
       </section>
@@ -31,33 +30,36 @@ export default function Sobre() {
           </h2>
 
           <p className="mt-8 text-lg text-gray-700 leading-8">
-            Atuamos com acompanhamento veterinário especializado,
-            diagnóstico sanitário, manejo nutricional e protocolos
-            estratégicos para propriedades rurais que buscam maior
-            eficiência produtiva e segurança sanitária.
+            Dra. Juliana Moraes é médica veterinária, natural de Goiânia,
+            formada em 2019 pelo Instituto Federal Goiano, e atua há mais
+            de 11 anos no setor pecuário. Possui ampla experiência clínica
+            em animais de produção, aliando conhecimento técnico à vivência
+            prática no campo, sempre com uma atuação próxima da realidade
+            do produtor rural.
           </p>
 
           <p className="mt-6 text-lg text-gray-700 leading-8">
-            Nosso objetivo é unir tecnologia, experiência prática e
-            acompanhamento técnico contínuo para gerar resultados
-            sustentáveis e melhorar a performance do rebanho.
+            Seu trabalho é pautado em levar ciência, tecnologia e soluções
+            estratégicas para a pecuária de forma acessível, atendendo desde
+            grandes propriedades até pequenos produtores, com foco em resultados,
+            bem-estar animal e eficiência produtiva.
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative flex justify-center">
           <img
-            src="https://images.unsplash.com/photo-1517849845537-4d257902454a"
-            alt="Atendimento veterinário"
-            className="rounded-3xl shadow-2xl w-full h-[500px] object-cover"
+            src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/WhatsApp%20Image%202026-05-09%20at%2019.09.44.jpeg"
+            alt="Dra. Juliana Moraes"
+            className="rounded-3xl shadow-2xl w-[85%] h-[500px] object-cover"
           />
 
-          <div className="absolute -bottom-6 -left-6 bg-green-800 text-white p-6 rounded-2xl shadow-xl">
+          <div className="absolute -bottom-6 left-10 bg-green-800 text-white p-6 rounded-2xl shadow-xl max-w-xs">
             <h3 className="text-3xl font-bold">
-              + Qualidade
+              + Experiência
             </h3>
 
             <p className="mt-2 text-green-100">
-              Saúde animal e produtividade com acompanhamento estratégico.
+              Atuação técnica voltada à saúde animal, produtividade e resultados no campo.
             </p>
           </div>
         </div>
