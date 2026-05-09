@@ -48,6 +48,19 @@ export default function RootLayout({
                       Protocolos sanitários e manejo nutricional.
                     </p>
                   </Link>
+<Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
+  <h3 className="font-bold text-green-900">Necrópsia a Campo</h3>
+  <p className="text-sm text-gray-600 mt-1">
+    Avaliação e coleta para diagnóstico de doenças.
+  </p>
+</Link>
+
+<Link
+  href="/servicos"
+  className="block mt-4 text-center bg-green-800 text-white px-5 py-3 rounded-full hover:bg-green-900 transition"
+>
+  Ver mais
+</Link>
 
                   <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
                     <h3 className="font-bold text-green-900">Exames Laboratoriais</h3>
