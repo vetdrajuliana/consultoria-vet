@@ -40,7 +40,7 @@ export default function RootLayout({
                   <span className="text-green-700">⌄</span>
                 </Link>
 
-                <div className="absolute left-0 top-full mt-4 w-[360px] bg-white rounded-3xl shadow-2xl p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                <div className="absolute left-0 top-full mt-4 w-[360px] max-h-[420px] overflow-y-auto bg-white rounded-3xl shadow-2xl p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                   
                   <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
                     <h3 className="font-bold text-green-900">Assistência Técnica a Campo</h3>
