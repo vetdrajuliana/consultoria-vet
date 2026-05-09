@@ -38,7 +38,7 @@ export default function Home() {
 </div>
 
           <h1
-            className="mt-5 text-4xl md:text-6xl leading-tight font-light"
+            className="mt-5 text-3xl md:text-5xl leading-tight font-light"
             style={{
               fontFamily: 'Georgia, serif',
               textShadow: '0 5px 20px rgba(0,0,0,0.95)'
