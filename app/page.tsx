@@ -12,31 +12,29 @@ export default function Home() {
 
         <div className="absolute inset-0 bg-black/55"></div>
 
-        <div className="relative z-10 px-8 md:px-20 text-white max-w-4xl">
+        <div className="relative z-10 px-8 md:px-20 text-white max-w-4xl flex flex-col justify-center h-full pt-10">
 
           <p className="text-sm md:text-base uppercase tracking-[5px] text-green-200 font-light">
             Consultoria Veterinária Estratégica
           </p>
 
           <h1
-            className="mt-5 text-5xl md:text-7xl leading-tight font-light"
-            style={{
-              fontFamily: 'Georgia, serif'
-            }}
+            className="mt-5 text-4xl md:text-6xl leading-tight font-light"
+            style={{ fontFamily: 'Georgia, serif' }}
           >
             Resultados reais
             <br />
             para sua produção
           </h1>
 
-          <p className="mt-8 text-lg md:text-2xl text-gray-200 leading-9 max-w-2xl">
+          <p className="mt-6 text-base md:text-xl text-gray-200 leading-8 max-w-2xl">
             Serviços Veterinários para Animais de Grande Porte.
           </p>
 
           <a
             href="https://wa.me/5562998577635"
             target="_blank"
-            className="inline-block mt-10 border border-white px-8 py-4 rounded-full text-lg hover:bg-white hover:text-black transition-all duration-300"
+            className="inline-block mt-8 w-fit border border-white px-8 py-4 rounded-full text-base md:text-lg hover:bg-white hover:text-black transition-all duration-300"
           >
             Solicitar Serviços
           </a>
@@ -50,9 +48,7 @@ export default function Home() {
 
           <h2
             className="text-4xl md:text-5xl text-green-900 text-center font-light"
-            style={{
-              fontFamily: 'Georgia, serif'
-            }}
+            style={{ fontFamily: 'Georgia, serif' }}
           >
             Resultados e Depoimentos
           </h2>
