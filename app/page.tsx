@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <main className="bg-white text-gray-900 overflow-hidden">
 
-      <section className="relative h-[45vh] flex items-center overflow-hidden">
+      <section className="relative h-[65vh] flex items-center overflow-hidden">
 
         <img
           src="https://images.unsplash.com/photo-1500595046743-cd271d694d30"
@@ -12,7 +12,7 @@ export default function Home() {
 
         <div className="absolute inset-0 bg-black/55"></div>
 
-        <div className="relative z-10 px-8 md:px-20 text-white max-w-4xl flex flex-col justify-center h-full pt-10">
+        <div className="relative z-10 px-8 md:px-20 text-white max-w-4xl flex flex-col justify-center h-full">
 
           <p className="text-sm md:text-base uppercase tracking-[5px] text-green-200 font-light">
             Consultoria Veterinária Estratégica
