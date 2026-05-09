@@ -1,5 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({
   children,
@@ -21,21 +22,21 @@ export default function RootLayout({
           >
             <Link
               href="/"
-              className="hover:text-green-200 transition-all duration-300"
+              className="hover:text-[#d6c6a5] transition-all duration-300"
             >
               Início
             </Link>
 
             <Link
               href="/sobre"
-              className="hover:text-green-200 transition-all duration-300"
+              className="hover:text-[#d6c6a5] transition-all duration-300"
             >
               Sobre
             </Link>
 
             <Link
               href="/servicos"
-              className="hover:text-green-200 transition-all duration-300"
+              className="hover:text-[#d6c6a5] transition-all duration-300"
             >
               Serviços
             </Link>
@@ -44,6 +45,8 @@ export default function RootLayout({
         </header>
 
         {children}
+
+        <Analytics />
 
       </body>
     </html>
