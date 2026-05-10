@@ -21,43 +21,7 @@ export default async function Servicos() {
   return (
     <main className="bg-white text-[#1f2933] min-h-screen overflow-x-hidden">
 
-      <section className="px-6 md:px-16 py-20 bg-white">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-
-          <div>
-            <p className="text-green-700 text-xl md:text-2xl font-semibold mb-6">
-              Serviços Veterinários
-            </p>
-
-            <h1
-              className="text-4xl md:text-6xl font-bold leading-tight text-[#1f2933]"
-              style={{ fontFamily: "Georgia, serif" }}
-            >
-              Soluções técnicas
-              <br />
-              para o campo
-            </h1>
-
-            <p className="mt-8 text-lg md:text-xl leading-9 text-gray-700 max-w-2xl">
-              Atendimento especializado para animais de grande porte,
-              com foco em saúde, bem-estar animal, produtividade e
-              eficiência no manejo pecuário.
-            </p>
-          </div>
-
-          <div className="relative flex justify-center overflow-hidden">
-            <div className="absolute top-0 left-6 w-44 h-44 bg-green-200 rounded-[40px] opacity-60"></div>
-
-            <img
-              src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/WhatsApp%20Image%202026-05-10%20at%2012.50.01.jpeg"
-              alt="Serviços Veterinários"
-              className="relative z-10 max-w-full h-[430px] object-cover rounded-[50px] shadow-2xl"
-            />
-          </div>
-
-        </div>
-      </section>
-
+     
       <section className="bg-white px-6 md:px-16 pb-24">
         <div className="max-w-7xl mx-auto">
 
