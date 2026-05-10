@@ -21,39 +21,38 @@ export default async function Servicos() {
   return (
     <main className="bg-white text-[#1f2933] min-h-screen overflow-x-hidden">
 
-     
-      <section className="bg-white px-6 md:px-16 pb-24">
+      <section className="bg-white px-6 md:px-16 py-24">
         <div className="max-w-7xl mx-auto">
 
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-            <div>
-              <p className="text-green-700 text-lg font-semibold mb-3">
-                Áreas de atuação
-              </p>
-
-              <h2
-                className="text-4xl md:text-5xl text-green-900 font-light"
-                style={{ fontFamily: "Georgia, serif" }}
-              >
-                Serviços Veterinários
-              </h2>
-            </div>
-
-            <p className="text-gray-600 text-lg leading-8 max-w-2xl">
-              Passe o mouse sobre cada card para visualizar os detalhes do serviço.
-              
+          <div className="mb-14">
+            <p className="text-green-700 text-lg font-semibold mb-3">
+              Áreas de atuação
             </p>
+
+            <h1
+              className="text-4xl md:text-5xl text-green-900 font-light"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
+              Nossos Serviços
+            </h1>
           </div>
 
           <div className="servicos-grid">
             {servicos?.map((item) => (
               <div key={item.id ?? item.nome} className="card-servico">
-                <img src={item.imagem_url} alt={item.nome} />
 
-                <div className="overlay">
-                  <h3>{item.nome}</h3>
-                  <p>{item.descricao}</p>
+                <div className="imagem-box">
+                  <img src={item.imagem_url} alt={item.nome} />
+
+                  <div className="fade-descricao">
+                    <p>{item.descricao}</p>
+                  </div>
                 </div>
+
+                <div className="titulo-box">
+                  <h3>{item.nome}</h3>
+                </div>
+
               </div>
             ))}
           </div>
@@ -65,77 +64,78 @@ export default async function Servicos() {
         .servicos-grid {
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 28px;
+          gap: 30px;
         }
 
         .card-servico {
-          position: relative;
-          height: 360px;
-          border-radius: 34px;
+          background: #ffffff;
+          border-radius: 30px;
           overflow: hidden;
-          cursor: pointer;
-          box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-          background: #f8f8f8;
+          box-shadow: 0 14px 34px rgba(0,0,0,0.10);
+          transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
 
-        .card-servico img {
+        .card-servico:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 22px 46px rgba(0,0,0,0.14);
+        }
+
+        .imagem-box {
+          position: relative;
+          height: 280px;
+          overflow: hidden;
+          border-radius: 30px 30px 0 0;
+        }
+
+        .imagem-box img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          display: block;
           transition: transform 0.5s ease;
         }
 
-        .overlay {
+        .card-servico:hover .imagem-box img {
+          transform: scale(1.06);
+        }
+
+        .fade-descricao {
           position: absolute;
           inset: 0;
           background: linear-gradient(
             to top,
-            rgba(0,0,0,0.82),
-            rgba(0,0,0,0.42),
-            rgba(0,0,0,0.08)
+            rgba(20, 83, 45, 0.92),
+            rgba(20, 83, 45, 0.72),
+            rgba(20, 83, 45, 0.30)
           );
           color: white;
           display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: 28px;
-          transition: background 0.4s ease;
-        }
-
-        .overlay h3 {
-          font-family: Georgia, serif;
-          font-size: 26px;
-          line-height: 1.15;
-          margin-bottom: 12px;
-          text-shadow: 0 4px 12px rgba(0,0,0,0.7);
-        }
-
-        .overlay p {
+          align-items: flex-end;
+          padding: 26px;
           opacity: 0;
-          transform: translateY(14px);
-          transition: all 0.4s ease;
+          transition: opacity 0.4s ease;
+        }
+
+        .card-servico:hover .fade-descricao {
+          opacity: 1;
+        }
+
+        .fade-descricao p {
           line-height: 1.7;
           font-size: 15px;
-          color: #f5f5f5;
-          text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+          text-shadow: 0 3px 10px rgba(0,0,0,0.35);
         }
 
-        .card-servico:hover img {
-          transform: scale(1.08);
+        .titulo-box {
+          padding: 22px 24px 26px;
+          background: #fff;
         }
 
-        .card-servico:hover .overlay {
-          background: linear-gradient(
-            to top,
-            rgba(0,0,0,0.9),
-            rgba(0,0,0,0.62),
-            rgba(0,0,0,0.24)
-          );
-        }
-
-        .card-servico:hover .overlay p {
-          opacity: 1;
-          transform: translateY(0);
+        .titulo-box h3 {
+          font-family: Georgia, serif;
+          color: #14532d;
+          font-size: 24px;
+          line-height: 1.2;
         }
 
         @media (max-width: 1100px) {
@@ -150,29 +150,22 @@ export default async function Servicos() {
             gap: 24px;
           }
 
-          .card-servico {
-            height: 330px;
-            border-radius: 28px;
+          .imagem-box {
+            height: 300px;
           }
 
-          .overlay {
-            padding: 24px;
+          .fade-descricao {
+            opacity: 1;
             background: linear-gradient(
               to top,
-              rgba(0,0,0,0.86),
-              rgba(0,0,0,0.48),
-              rgba(0,0,0,0.12)
+              rgba(20, 83, 45, 0.88),
+              rgba(20, 83, 45, 0.55),
+              rgba(20, 83, 45, 0.10)
             );
           }
 
-          .overlay h3 {
-            font-size: 24px;
-          }
-
-          .overlay p {
-            opacity: 1;
-            transform: translateY(0);
-            font-size: 15px;
+          .titulo-box h3 {
+            font-size: 23px;
           }
         }
       `}</style>
