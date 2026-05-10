@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="bg-[#f4efe6] text-[#1f2933] min-h-screen overflow-x-hidden w-full">
+    <main className="bg-white text-[#1f2933] min-h-screen overflow-x-hidden w-full">
 
       <section className="relative min-h-[85vh] flex items-center px-6 md:px-16 py-16 overflow-hidden">
 
@@ -69,7 +69,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-10 mt-16">
 
-            <div className="bg-[#f4efe6] p-10 rounded-[30px] shadow-lg">
+            <div className="bg-[#f8f8f8] p-10 rounded-[30px] shadow-lg">
               <p className="text-gray-700 leading-8 italic">
                 “Excelente acompanhamento técnico. Conseguimos melhorar o manejo
                 sanitário e reduzir perdas na propriedade.”
