@@ -8,7 +8,7 @@ export default function Home() {
 
           <div className="w-full min-w-0">
             <p className="text-green-700 text-xl md:text-2xl font-semibold mb-6">
-              Serviços Veterinários para Animais de Grande Porte
+              Serviços Veterinários 
             </p>
 
             <h1
