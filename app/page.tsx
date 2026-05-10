@@ -41,7 +41,7 @@ export default function Home() {
             <div className="absolute top-0 left-6 w-44 h-44 bg-green-200 rounded-[40px] opacity-60"></div>
 
             <img
-              src="https://images.unsplash.com/photo-1500595046743-cd271d694d30"
+              src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/Foto%20site%20(1).PNG"
               alt="Consultoria Veterinária no Campo"
               className="relative z-10 max-w-full h-[500px] object-cover rounded-[50px] shadow-2xl"
             />
