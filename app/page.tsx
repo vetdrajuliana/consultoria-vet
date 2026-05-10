@@ -1,12 +1,12 @@
 export default function Home() {
   return (
-    <main className="bg-[#f4efe6] text-[#1f2933] min-h-screen overflow-x-hidden">
+    <main className="bg-[#f4efe6] text-[#1f2933] min-h-screen overflow-x-hidden w-full">
 
-      <section className="relative min-h-[85vh] flex items-center px-6 md:px-16 py-16 overflow-x-hidden">
+      <section className="relative min-h-[85vh] flex items-center px-6 md:px-16 py-16 overflow-hidden">
 
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center w-full">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center w-full overflow-hidden">
 
-          <div>
+          <div className="w-full min-w-0">
             <p className="text-green-700 text-xl md:text-2xl font-semibold mb-6">
               Serviços Veterinários para Animais de Grande Porte
             </p>
@@ -36,37 +36,23 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="relative -mt-6 md:-mt-12 overflow-hidden">
-            <div className="absolute top-0 left-0 w-56 h-56 bg-green-200 rounded-[40px] opacity-60"></div>
+          <div className="relative w-full min-w-0 overflow-hidden -mt-6 md:-mt-12 flex justify-center">
+
+            <div className="absolute top-0 left-6 w-44 h-44 bg-green-200 rounded-[40px] opacity-60"></div>
 
             <img
               src="https://images.unsplash.com/photo-1500595046743-cd271d694d30"
               alt="Consultoria Veterinária no Campo"
-              className="relative z-10 w-full h-[520px] object-cover rounded-[55px] shadow-2xl"
+              className="relative z-10 w-[92%] h-[500px] object-cover rounded-[50px] shadow-2xl"
             />
 
-            <div className="absolute top-8 right-8 z-20 bg-white/90 backdrop-blur-md rounded-full w-32 h-32 flex items-center justify-center shadow-xl">
-              <p className="text-center text-green-800 font-bold text-lg">
-                CRMV-GO
-                <br />
-                14194
-              </p>
-            </div>
           </div>
 
         </div>
 
-        <a
-          href="https://wa.me/5562998577635"
-          target="_blank"
-          className="fixed right-6 bottom-6 z-50 bg-green-700 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-800 transition-all"
-        >
-          ☎
-        </a>
-
       </section>
 
-      <section className="bg-white py-24 px-6 md:px-16">
+      <section className="bg-white py-24 px-6 md:px-16 overflow-hidden">
         <div className="max-w-7xl mx-auto">
 
           <h2
@@ -82,12 +68,16 @@ export default function Home() {
           </p>
 
           <div className="grid md:grid-cols-3 gap-10 mt-16">
+
             <div className="bg-[#f4efe6] p-10 rounded-[30px] shadow-lg">
               <p className="text-gray-700 leading-8 italic">
                 “Excelente acompanhamento técnico. Conseguimos melhorar o manejo
                 sanitário e reduzir perdas na propriedade.”
               </p>
-              <h3 className="mt-6 font-bold text-green-900">Produtor Rural</h3>
+
+              <h3 className="mt-6 font-bold text-green-900">
+                Produtor Rural
+              </h3>
             </div>
 
             <div className="bg-[#f4efe6] p-10 rounded-[30px] shadow-lg">
@@ -95,7 +85,10 @@ export default function Home() {
                 “Atendimento profissional e muito próximo da realidade do produtor.
                 Resultados visíveis no rebanho.”
               </p>
-              <h3 className="mt-6 font-bold text-green-900">Pecuarista</h3>
+
+              <h3 className="mt-6 font-bold text-green-900">
+                Pecuarista
+              </h3>
             </div>
 
             <div className="bg-[#f4efe6] p-10 rounded-[30px] shadow-lg">
@@ -103,8 +96,12 @@ export default function Home() {
                 “A consultoria trouxe mais organização, produtividade e segurança
                 sanitária para nossa fazenda.”
               </p>
-              <h3 className="mt-6 font-bold text-green-900">Fazenda Parceira</h3>
+
+              <h3 className="mt-6 font-bold text-green-900">
+                Fazenda Parceira
+              </h3>
             </div>
+
           </div>
 
         </div>
