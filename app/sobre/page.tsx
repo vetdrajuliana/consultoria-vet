@@ -56,7 +56,7 @@ export default function Sobre() {
             <div className="absolute top-0 left-6 w-44 h-44 bg-green-200 rounded-[40px] opacity-60"></div>
 
             <img
-              src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/WhatsApp%20Image%202026-05-09%20at%2019.09.44.jpeg"
+              src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/WhatsApp%20Image%202026-05-10%20at%2012.20.47.jpeg"
               alt="Dra. Juliana Moraes"
               className="relative z-10 max-w-full h-[600px] object-cover rounded-[50px] shadow-2xl"
             />
