@@ -4,7 +4,7 @@ export default function Home() {
 
       <section className="relative min-h-[85vh] flex items-center px-6 md:px-16 py-16 overflow-hidden">
 
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center w-full overflow-x-hidden">
 
           <div className="w-full min-w-0">
             <p className="text-green-700 text-xl md:text-2xl font-semibold mb-6">
@@ -43,7 +43,7 @@ export default function Home() {
             <img
               src="https://images.unsplash.com/photo-1500595046743-cd271d694d30"
               alt="Consultoria Veterinária no Campo"
-              className="relative z-10 w-[92%] h-[500px] object-cover rounded-[50px] shadow-2xl"
+              className="relative z-10 max-w-full h-[500px] object-cover rounded-[50px] shadow-2xl"
             />
 
           </div>
