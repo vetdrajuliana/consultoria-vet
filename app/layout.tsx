@@ -11,87 +11,96 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body>
         <header className="bg-[#f4efe6] border-b border-[#e5dccd] sticky top-0 z-50">
-          <nav className="max-w-7xl mx-auto px-6 md:px-14 py-4 flex items-center justify-between">
+          <nav className="max-w-7xl mx-auto px-5 md:px-14 py-4">
 
-            <Link href="/" className="leading-tight">
-              <h1
-                className="text-2xl md:text-[28px] font-bold text-green-900"
-                style={{ fontFamily: "Georgia, serif" }}
-              >
-                Dra. Juliana Moraes
-              </h1>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-              <p className="text-sm text-[#1f2933] mt-1">
-                Médica Veterinária
-              </p>
-
-              <p className="text-sm text-[#1f2933]">
-                CRMV-GO 14194
-              </p>
-            </Link>
-
-            <div className="flex items-center gap-8 md:gap-12 text-[#2f2f2f] text-lg md:text-xl font-medium">
-
-              <Link href="/" className="hover:text-green-800 transition">
-                Início
-              </Link>
-
-              <Link href="/sobre" className="hover:text-green-800 transition">
-                Sobre
-              </Link>
-
-              <div className="relative group">
-                <Link
-                  href="/servicos"
-                  className="hover:text-green-800 transition flex items-center gap-2"
+              <Link href="/" className="leading-tight text-center md:text-left">
+                <h1
+                  className="text-[24px] md:text-[28px] font-bold text-green-900"
+                  style={{ fontFamily: "Georgia, serif" }}
                 >
-                  Serviços
-                  <span className="text-green-700 text-xs transition-transform duration-300 group-hover:rotate-180">
-                    ▼
-                  </span>
+                  Dra. Juliana Moraes
+                </h1>
+
+                <p className="text-xs md:text-sm text-[#1f2933] mt-1">
+                  Médica Veterinária
+                </p>
+
+                <p className="text-xs md:text-sm text-[#1f2933]">
+                  CRMV-GO 14194
+                </p>
+              </Link>
+
+              <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 md:gap-10 text-[#2f2f2f] text-base md:text-xl font-medium">
+
+                <Link href="/" className="hover:text-green-800 transition">
+                  Início
                 </Link>
 
-                <div className="absolute left-0 top-full mt-4 w-[380px] max-h-[430px] overflow-y-auto bg-white rounded-3xl shadow-2xl p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                <Link href="/sobre" className="hover:text-green-800 transition">
+                  Sobre
+                </Link>
 
-                  <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
-                    <h3 className="font-bold text-green-900">Assistência Técnica a Campo</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Protocolos sanitários e manejo nutricional.
-                    </p>
-                  </Link>
-
-                  <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
-                    <h3 className="font-bold text-green-900">Exames Laboratoriais</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Coleta de sangue e análises para diagnóstico.
-                    </p>
-                  </Link>
-
-                  <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
-                    <h3 className="font-bold text-green-900">Necrópsia a Campo</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Avaliação e coleta para diagnóstico de doenças.
-                    </p>
-                  </Link>
-
+                <div className="relative group">
                   <Link
                     href="/servicos"
-                    className="block mt-5 text-center bg-green-800 text-white px-5 py-3 rounded-full hover:bg-green-900 transition"
+                    className="hover:text-green-800 transition flex items-center gap-2"
                   >
-                    Ver mais
+                    Serviços
+                    <span className="text-green-700 text-xs transition-transform duration-300 group-hover:rotate-180">
+                      ▼
+                    </span>
                   </Link>
 
+                  <div className="absolute left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 top-full mt-4 w-[300px] md:w-[380px] max-h-[360px] md:max-h-[430px] overflow-y-auto bg-white rounded-3xl shadow-2xl p-5 md:p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+
+                    <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
+                      <h3 className="font-bold text-green-900">
+                        Assistência Técnica a Campo
+                      </h3>
+                      <p className="text-sm text-gray-600 mt-1">
+                        Protocolos sanitários e manejo nutricional.
+                      </p>
+                    </Link>
+
+                    <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
+                      <h3 className="font-bold text-green-900">
+                        Exames Laboratoriais
+                      </h3>
+                      <p className="text-sm text-gray-600 mt-1">
+                        Coleta de sangue e análises para diagnóstico.
+                      </p>
+                    </Link>
+
+                    <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
+                      <h3 className="font-bold text-green-900">
+                        Necrópsia a Campo
+                      </h3>
+                      <p className="text-sm text-gray-600 mt-1">
+                        Avaliação e coleta para diagnóstico de doenças.
+                      </p>
+                    </Link>
+
+                    <Link
+                      href="/servicos"
+                      className="block mt-5 text-center bg-green-800 text-white px-5 py-3 rounded-full hover:bg-green-900 transition"
+                    >
+                      Ver mais
+                    </Link>
+
+                  </div>
                 </div>
+
+                <a
+                  href="https://wa.me/5562998577635"
+                  target="_blank"
+                  className="border border-green-800 text-green-900 px-5 md:px-6 py-2 rounded-full hover:bg-green-900 hover:text-white transition text-base md:text-lg"
+                >
+                  WhatsApp
+                </a>
+
               </div>
-
-              <a
-                href="https://wa.me/5562998577635"
-                target="_blank"
-                className="border border-green-800 text-green-900 px-6 py-2 rounded-full hover:bg-green-900 hover:text-white transition"
-              >
-                WhatsApp
-              </a>
-
             </div>
           </nav>
         </header>
