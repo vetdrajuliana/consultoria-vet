@@ -34,46 +34,48 @@ export default function RootLayout({
               <div className="relative group">
                 <Link
                   href="/servicos"
-                  className="hover:text-green-800 transition flex items-center gap-1"
+                  className="hover:text-green-800 transition flex items-center gap-2"
                 >
                   Serviços
-                  <span className="text-green-700">⌄</span>
+                  <span className="text-green-700 text-xs transition-transform duration-300 group-hover:rotate-180">
+                    ▼
+                  </span>
                 </Link>
 
-                <div className="absolute left-0 top-full mt-4 w-[360px] max-h-[420px] overflow-y-auto bg-white rounded-3xl shadow-2xl p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                  
+                <div className="absolute left-0 top-full mt-4 w-[380px] max-h-[430px] overflow-y-auto bg-white rounded-3xl shadow-2xl p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+
                   <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
-                    <h3 className="font-bold text-green-900">Assistência Técnica a Campo</h3>
+                    <h3 className="font-bold text-green-900">
+                      Assistência Técnica a Campo
+                    </h3>
                     <p className="text-sm text-gray-600 mt-1">
                       Protocolos sanitários e manejo nutricional.
                     </p>
                   </Link>
-<Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
-  <h3 className="font-bold text-green-900">Necrópsia a Campo</h3>
-  <p className="text-sm text-gray-600 mt-1">
-    Avaliação e coleta para diagnóstico de doenças.
-  </p>
-</Link>
-
-<Link
-  href="/servicos"
-  className="block mt-4 text-center bg-green-800 text-white px-5 py-3 rounded-full hover:bg-green-900 transition"
->
-  Ver mais
-</Link>
 
                   <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
-                    <h3 className="font-bold text-green-900">Exames Laboratoriais</h3>
+                    <h3 className="font-bold text-green-900">
+                      Exames Laboratoriais
+                    </h3>
                     <p className="text-sm text-gray-600 mt-1">
                       Coleta de sangue e análises para diagnóstico.
                     </p>
                   </Link>
 
                   <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
-                    <h3 className="font-bold text-green-900">Necrópsia a Campo</h3>
+                    <h3 className="font-bold text-green-900">
+                      Necrópsia a Campo
+                    </h3>
                     <p className="text-sm text-gray-600 mt-1">
                       Avaliação e coleta para diagnóstico de doenças.
                     </p>
+                  </Link>
+
+                  <Link
+                    href="/servicos"
+                    className="block mt-5 text-center bg-green-800 text-white px-5 py-3 rounded-full hover:bg-green-900 transition"
+                  >
+                    Ver mais
                   </Link>
 
                 </div>
