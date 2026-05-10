@@ -1,8 +1,8 @@
 export default function Home() {
   return (
-    <main className="bg-[#f4efe6] text-[#1f2933] min-h-screen overflow-hidden">
+    <main className="bg-[#f4efe6] text-[#1f2933] min-h-screen overflow-x-hidden">
 
-      <section className="relative min-h-[85vh] flex items-center px-6 md:px-16 py-16">
+      <section className="relative min-h-[85vh] flex items-center px-6 md:px-16 py-16 overflow-x-hidden">
 
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center w-full">
 
@@ -12,7 +12,7 @@ export default function Home() {
             </p>
 
             <h1
-              className="text-5xl md:text-7xl font-bold leading-tight text-[#1f2933]"
+              className="text-4xl md:text-6xl font-bold leading-tight text-[#1f2933]"
               style={{ fontFamily: "Georgia, serif" }}
             >
               Resultados reais
@@ -34,32 +34,15 @@ export default function Home() {
               Solicitar Serviços
               <span>→</span>
             </a>
-
-            <div className="flex gap-10 mt-16 text-green-800">
-              <div>
-                <p className="text-3xl">🐄</p>
-                <p className="mt-2 font-bold">Grande Porte</p>
-              </div>
-
-              <div>
-                <p className="text-3xl">🌿</p>
-                <p className="mt-2 font-bold">Campo</p>
-              </div>
-
-              <div>
-                <p className="text-3xl">📋</p>
-                <p className="mt-2 font-bold">Consultoria</p>
-              </div>
-            </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute -top-8 -left-8 w-72 h-72 bg-green-200 rounded-[40px] opacity-60"></div>
+          <div className="relative -mt-6 md:-mt-12 overflow-hidden">
+            <div className="absolute top-0 left-0 w-56 h-56 bg-green-200 rounded-[40px] opacity-60"></div>
 
             <img
               src="https://images.unsplash.com/photo-1500595046743-cd271d694d30"
               alt="Consultoria Veterinária no Campo"
-              className="relative z-10 w-full h-[560px] object-cover rounded-[60px] shadow-2xl"
+              className="relative z-10 w-full h-[520px] object-cover rounded-[55px] shadow-2xl"
             />
 
             <div className="absolute top-8 right-8 z-20 bg-white/90 backdrop-blur-md rounded-full w-32 h-32 flex items-center justify-center shadow-xl">
