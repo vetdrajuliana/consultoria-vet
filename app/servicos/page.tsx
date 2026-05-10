@@ -49,7 +49,7 @@ export default async function Servicos() {
             <div className="absolute top-0 left-6 w-44 h-44 bg-green-200 rounded-[40px] opacity-60"></div>
 
             <img
-              src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/Foto%20site%20(1).PNG"
+              src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/WhatsApp%20Image%202026-05-10%20at%2012.50.01.jpeg"
               alt="Serviços Veterinários"
               className="relative z-10 max-w-full h-[430px] object-cover rounded-[50px] shadow-2xl"
             />
@@ -71,13 +71,13 @@ export default async function Servicos() {
                 className="text-4xl md:text-5xl text-green-900 font-light"
                 style={{ fontFamily: "Georgia, serif" }}
               >
-                Nossos Serviços
+                Serviços Veterinários
               </h2>
             </div>
 
             <p className="text-gray-600 text-lg leading-8 max-w-2xl">
               Passe o mouse sobre cada card para visualizar os detalhes do serviço.
-              No celular, a descrição aparece automaticamente.
+              
             </p>
           </div>
 
