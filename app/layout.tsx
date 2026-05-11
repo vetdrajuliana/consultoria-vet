@@ -1,6 +1,5 @@
 import "./globals.css";
 import Link from "next/link";
-import Image from "next/image";
 import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({
@@ -13,22 +12,17 @@ export default function RootLayout({
       <body className="overflow-x-hidden">
         <header className="bg-[#f4efe6]/95 backdrop-blur-md border-b border-[#e5dccd] fixed top-0 left-0 right-0 z-[9999]">
           <nav className="max-w-7xl mx-auto px-5 md:px-14 py-4">
-
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-              <Link href="/" className="flex justify-center md:justify-start">
-                <Image
-                  src="/logo.png"
+              <Link href="/" className="flex justify-center md:justify-start items-center">
+                <img
+                  src="/logo.PNG?v=2"
                   alt="Dra Juliana Moraes"
-                  width={300}
-                  height={120}
-                  priority
                   className="h-[70px] md:h-[90px] w-auto object-contain"
                 />
               </Link>
 
               <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 md:gap-10 text-[#2f2f2f] text-base md:text-xl font-medium">
-
                 <Link href="/" className="hover:text-green-800 transition">
                   Início
                 </Link>
@@ -53,7 +47,6 @@ export default function RootLayout({
                   </Link>
 
                   <div className="absolute left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 top-full mt-4 w-[300px] md:w-[380px] max-h-[360px] md:max-h-[430px] overflow-y-auto bg-white rounded-3xl shadow-2xl p-5 md:p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-
                     <Link href="/servicos" className="block p-3 rounded-xl hover:bg-green-50">
                       <h3 className="font-bold text-green-900">
                         Assistência Técnica a Campo
@@ -87,7 +80,6 @@ export default function RootLayout({
                     >
                       Ver mais
                     </Link>
-
                   </div>
                 </div>
 
@@ -98,7 +90,6 @@ export default function RootLayout({
                 >
                   WhatsApp
                 </a>
-
               </div>
             </div>
           </nav>
