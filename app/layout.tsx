@@ -1,5 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({
@@ -16,12 +17,15 @@ export default function RootLayout({
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
               <Link href="/" className="flex justify-center md:justify-start">
-  <img
-    src="/logo.png"
-    alt="Dra Juliana Moraes"
-    className="h-[70px] md:h-[90px] w-auto object-contain"
-  />
-</Link>
+                <Image
+                  src="/logo.png"
+                  alt="Dra Juliana Moraes"
+                  width={300}
+                  height={120}
+                  priority
+                  className="h-[70px] md:h-[90px] w-auto object-contain"
+                />
+              </Link>
 
               <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 md:gap-10 text-[#2f2f2f] text-base md:text-xl font-medium">
 
@@ -100,10 +104,9 @@ export default function RootLayout({
           </nav>
         </header>
 
-<div className="h-[150px] md:h-[110px]"></div>
+        <div className="h-[150px] md:h-[110px]"></div>
 
-{children}
-
+        {children}
 
         <Analytics />
       </body>
