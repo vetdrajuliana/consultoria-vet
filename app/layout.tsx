@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="overflow-x-hidden">
-        <header className="bg-[#f4efe6]/95 backdrop-blur-md border-b border-[#e5dccd] sticky top-0 z-50">
+        <header className="bg-[#f4efe6]/95 backdrop-blur-md border-b border-[#e5dccd] fixed top-0 left-0 right-0 z-[9999]">
           <nav className="max-w-7xl mx-auto px-5 md:px-14 py-4">
 
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -109,7 +109,10 @@ export default function RootLayout({
           </nav>
         </header>
 
-        {children}
+<div className="h-[150px] md:h-[110px]"></div>
+
+{children}
+
 
         <Analytics />
       </body>
