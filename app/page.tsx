@@ -62,7 +62,7 @@ export default function Home() {
             className="text-4xl md:text-5xl text-green-900 text-center font-light"
             style={{ fontFamily: "Georgia, serif" }}
           >
-<section className="bg-white px-6 md:px-16 py-20">
+<section className="bg-white px-6 md:px-16 pt-0 pb-12">
   <div className="max-w-6xl mx-auto text-center">
     <p className="text-green-700 text-lg font-semibold mb-3">
       Regiões Atendidas
