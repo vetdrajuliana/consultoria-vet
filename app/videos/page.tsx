@@ -26,25 +26,19 @@ export default function Videos() {
 
           </div>
 
-          <div className="grid md:grid-cols-2 gap-10">
+          <div className="grid md:grid-cols-3 gap-10">
 
             <div className="bg-[#f8f8f8] rounded-[30px] overflow-hidden shadow-lg">
 
-              <iframe
-  src="https://www.instagram.com/reel/DTObmf5jl7u/embed"
-  className="w-full aspect-[9/16]"
-  allowTransparency={true}
-></iframe>
+              <div className="relative w-full overflow-hidden rounded-t-[30px] bg-black flex justify-center">
 
-              <div className="p-8">
-                <h2 className="text-2xl text-green-900 font-bold">
-                  Título do Vídeo
-                </h2>
+  <iframe
+    src="https://www.instagram.com/reel/DTObmf5jl7u/embed"
+    className="w-full max-w-[380px] h-[680px]"
+    allowTransparency={true}
+  ></iframe>
 
-                <p className="mt-4 text-gray-700 leading-8">
-                  Descrição do conteúdo apresentado no vídeo.
-                </p>
-              </div>
+</div>
 
             </div>
 
