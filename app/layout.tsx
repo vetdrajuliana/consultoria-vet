@@ -17,7 +17,7 @@ export default function RootLayout({
 
               <Link href="/" className="flex justify-center md:justify-start items-center">
                 <img
-                  src="/logo.png"
+                  src="/logo.PNG"
                   alt="Dra Juliana Moraes"
                   className="h-[110px] md:h-[130px] w-auto object-contain mix-blend-multiply"
                 />
