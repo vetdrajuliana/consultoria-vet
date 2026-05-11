@@ -42,6 +42,10 @@ export default function RootLayout({
                   Sobre
                 </Link>
 
+                <Link href="/videos" className="hover:text-green-800 transition">
+                 Vídeos
+                </Link>
+
                 <div className="relative group">
                   <Link
                     href="/servicos"
