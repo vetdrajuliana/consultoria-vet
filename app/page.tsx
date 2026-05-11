@@ -62,6 +62,34 @@ export default function Home() {
             className="text-4xl md:text-5xl text-green-900 text-center font-light"
             style={{ fontFamily: "Georgia, serif" }}
           >
+<section className="bg-white px-6 md:px-16 py-20">
+  <div className="max-w-6xl mx-auto text-center">
+    <p className="text-green-700 text-lg font-semibold mb-3">
+      Regiões Atendidas
+    </p>
+
+    <h2
+      className="text-3xl md:text-4xl text-green-900 font-light mb-6"
+      style={{ fontFamily: "Georgia, serif" }}
+    >
+      Atendimento no entorno de Trindade e região
+    </h2>
+
+    <p className="text-gray-700 text-lg leading-8 max-w-3xl mx-auto mb-10">
+      Atendimentos técnicos a campo para propriedades rurais, com foco em bovinos,
+      equinos e animais de grande porte.
+    </p>
+
+    <div className="rounded-3xl overflow-hidden shadow-xl border border-green-100 bg-green-50">
+      <img
+        src="/mapa-regioes.PNG"
+        alt="Mapa das regiões atendidas no entorno de Trindade"
+        className="w-full h-auto object-cover"
+      />
+    </div>
+  </div>
+</section>
+
             Resultados e Depoimentos
           </h2>
 
