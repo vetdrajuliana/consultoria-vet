@@ -9,8 +9,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>
-        <header className="bg-[#f4efe6] border-b border-[#e5dccd] sticky top-0 z-50">
+      <body className="overflow-x-hidden">
+        <header className="bg-[#f4efe6]/95 backdrop-blur-md border-b border-[#e5dccd] sticky top-0 z-50">
           <nav className="max-w-7xl mx-auto px-5 md:px-14 py-4">
 
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -43,7 +43,7 @@ export default function RootLayout({
                 </Link>
 
                 <Link href="/videos" className="hover:text-green-800 transition">
-                 Vídeos
+                  Vídeos
                 </Link>
 
                 <div className="relative group">
