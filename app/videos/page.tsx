@@ -41,12 +41,35 @@ export default function Videos() {
 
               <div className="p-8">
                 <h2 className="text-2xl text-green-900 font-bold">
-                  3 erros mais comuns na vacinação
+                  Termos Técnicos Veterinários x Termos Utilizados no Campo
                 </h2>
 
                 <p className="mt-4 text-gray-700 leading-8">
-                  Orientações práticas para melhorar o manejo sanitário e evitar
-                  falhas durante a vacinação.
+                  Vocês conhecem algum desses termos?
+                </p>
+              </div>
+
+            </div>
+<div className="bg-[#f8f8f8] rounded-[30px] overflow-hidden shadow-lg">
+
+              <video
+                controls
+                playsInline
+                className="w-full aspect-[9/16] object-cover bg-black"
+              >
+                <source
+                  src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/SaveClip.App_AQNTX8AftY37eZs1LdNaHKGOAvvgza4sik4PSPdIv0zgqASRVozC6Y-apnhdcPGQQloMbv6O1i4d9R80GiYx5kKjTorsWL3oLAKSEqQ.mp4"
+                  type="video/mp4"
+                />
+              </video>
+
+              <div className="p-8">
+                <h2 className="text-2xl text-green-900 font-bold">
+                 Como identificar um bovino doente?
+                </h2>
+
+                <p className="mt-4 text-gray-700 leading-8">
+                  Dicas práticas de como identificar se seu animal apresenta alguma doença!
                 </p>
               </div>
 
