@@ -15,22 +15,13 @@ export default function RootLayout({
 
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-              <Link href="/" className="leading-tight text-center md:text-left">
-                <h1
-                  className="text-[24px] md:text-[28px] font-bold text-green-900"
-                  style={{ fontFamily: "Georgia, serif" }}
-                >
-                  Dra. Juliana Moraes
-                </h1>
-
-                <p className="text-xs md:text-sm text-[#1f2933] mt-1">
-                  Médica Veterinária
-                </p>
-
-                <p className="text-xs md:text-sm text-[#1f2933]">
-                  CRMV-GO 14194
-                </p>
-              </Link>
+              <Link href="/" className="flex justify-center md:justify-start">
+  <img
+    src="/logo.png"
+    alt="Dra Juliana Moraes"
+    className="h-[70px] md:h-[90px] w-auto object-contain"
+  />
+</Link>
 
               <div className="flex flex-wrap justify-center md:justify-end items-center gap-4 md:gap-10 text-[#2f2f2f] text-base md:text-xl font-medium">
 
