@@ -21,6 +21,7 @@ export const config = {
     "/app/animais/:path*",
     "/app/fazendas/:path*",
     "/app/fornecedores/:path*",
+    "/app/insumos/:path*",
     "/app/manejos/:path*",
     "/app/pessoas/:path*",
     "/app/usuarios/:path*",
