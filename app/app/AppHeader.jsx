@@ -140,7 +140,7 @@ function MenuItem({ item }) {
             <Link
               key={child.href}
               href={child.href}
-              className="block rounded-xl px-3 py-1 text-xs font-semibold text-white/78 transition hover:bg-white/12 hover:text-white"
+              className="block rounded-xl px-3 py-1.5 text-sm font-semibold text-white/82 transition hover:bg-white/12 hover:text-white"
             >
               {child.label}
             </Link>
