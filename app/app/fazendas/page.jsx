@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { db } from "../../../lib/fazendas-db";
+import AppHeader from "../AppHeader";
 
 export default function Fazendas() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -119,6 +120,9 @@ export default function Fazendas() {
   }
 
   return (
+    <>
+    <AppHeader />
+
     <main className="min-h-screen bg-[#f5f7f2] p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-10">
@@ -318,5 +322,6 @@ export default function Fazendas() {
         </div>
       </div>
     </main>
+    </>
   );
 }

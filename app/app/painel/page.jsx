@@ -1,3 +1,5 @@
+import AppHeader from "../AppHeader";
+
 export const metadata = {
   title: "Painel da Fazenda | Dra. Juliana Moraes",
   description: "Painel interno do app de gestao agropecuaria.",
@@ -25,6 +27,8 @@ const cards = [
 export default function PainelPage() {
   return (
     <main className="min-h-screen bg-[#f5f7f2] text-[#1f2933]">
+      <AppHeader />
+
       <section className="bg-green-900 text-white px-6 py-10 shadow-lg">
         <div className="max-w-7xl mx-auto">
           <p className="text-green-200 text-lg">Gestao Rural Inteligente</p>
