@@ -46,7 +46,7 @@ export default function PainelPage() {
         }}
       >
         <div className="max-w-2xl">
-          <p className="text-lg font-semibold text-green-200">
+          <p className="text-xl font-semibold text-green-200">
             Gestão Agropecuária Inteligente
           </p>
 
@@ -57,7 +57,7 @@ export default function PainelPage() {
             Painel da Fazenda
           </h1>
 
-          <p className="mt-6 text-lg leading-8 text-white/90 lg:mt-4 lg:max-w-xl lg:leading-7">
+          <p className="mt-6 text-xl leading-8 text-white/90 lg:mt-4 lg:max-w-2xl lg:leading-8">
             Controle sanitário, manejo, reprodução, visitas técnicas e
             acompanhamento completo da propriedade.
           </p>
@@ -66,9 +66,9 @@ export default function PainelPage() {
 
       <section className="mt-10 lg:mt-6">
         <div className="mb-6 flex items-center justify-between lg:mb-4">
-          <h2 className="text-2xl font-bold text-[#10251b]">Acesso rápido</h2>
+          <h2 className="text-3xl font-bold text-[#10251b]">Acesso rápido</h2>
 
-          <button className="rounded-xl border border-green-100 bg-white px-4 py-3 text-sm font-semibold text-green-900 shadow-sm">
+          <button className="rounded-xl border border-green-100 bg-white px-4 py-3 text-base font-semibold text-green-900 shadow-sm">
             Personalizar
           </button>
         </div>
@@ -84,15 +84,15 @@ export default function PainelPage() {
                 {card.icon}
               </div>
 
-              <h3 className="mt-7 text-2xl font-bold text-[#10251b] lg:mt-4 lg:text-xl">
+              <h3 className="mt-7 text-2xl font-bold text-[#10251b] lg:mt-4 lg:text-2xl">
                 {card.title}
               </h3>
 
-              <p className="mx-auto mt-4 max-w-xs leading-7 text-gray-600 lg:mt-2 lg:leading-6">
+              <p className="mx-auto mt-4 max-w-xs text-lg leading-7 text-gray-600 lg:mt-2 lg:text-base lg:leading-6">
                 {card.description}
               </p>
 
-              <span className="mt-7 inline-flex w-full max-w-56 items-center justify-center gap-3 rounded-xl bg-green-50 px-5 py-3 font-semibold text-green-900 lg:mt-4 lg:py-2">
+              <span className="mt-7 inline-flex w-full max-w-56 items-center justify-center gap-3 rounded-xl bg-green-50 px-5 py-3 text-lg font-semibold text-green-900 lg:mt-4 lg:py-2 lg:text-base">
                 Acessar <span>›</span>
               </span>
             </Link>
@@ -100,7 +100,7 @@ export default function PainelPage() {
         </div>
       </section>
 
-      <footer className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-6 text-sm text-gray-500 lg:mt-5 lg:pt-4">
+      <footer className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-6 text-base text-gray-500 lg:mt-5 lg:pt-4">
         <p>© 2026 PecuarIA. Todos os direitos reservados.</p>
         <p>Versão 1.0.0</p>
       </footer>

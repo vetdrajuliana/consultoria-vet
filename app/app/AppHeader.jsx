@@ -198,7 +198,7 @@ export default function AppHeader() {
               />
             </Link>
 
-            <nav className="space-y-0.5 text-sm">
+            <nav className="space-y-0.5 text-[15px]">
               {menuPrincipal.map((item) => (
                 <MenuItem key={item.label} item={item} />
               ))}
@@ -218,7 +218,7 @@ export default function AppHeader() {
               <form action="/api/pecuaria/logout" method="post">
                 <button
                   type="submit"
-                  className="flex w-full items-center gap-3 px-4 py-2.5 text-left font-semibold text-white transition hover:bg-white/12"
+                  className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-[15px] font-semibold text-white transition hover:bg-white/12"
                 >
                   <span className="text-xl">S</span>
                   Sair
@@ -231,13 +231,13 @@ export default function AppHeader() {
         <header className="fixed inset-x-0 top-0 z-[70] border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur lg:left-72">
           <div className="flex h-20 items-center justify-between gap-5 px-5 lg:px-10">
             <div className="min-w-0">
-              <p className="text-lg font-bold text-[#10251b]">
+              <p className="text-xl font-bold text-[#10251b]">
                 Bom dia, Juliana!
               </p>
-              <p className="text-sm text-gray-500">Bem-vinda ao PecuarIA</p>
+              <p className="text-base text-gray-500">Bem-vinda ao PecuarIA</p>
             </div>
 
-            <label className="hidden h-12 flex-1 max-w-xl items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 text-gray-500 md:flex">
+            <label className="hidden h-12 flex-1 max-w-xl items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 text-base text-gray-500 md:flex">
               <input
                 type="search"
                 placeholder="Buscar no sistema..."
@@ -259,7 +259,7 @@ export default function AppHeader() {
         </header>
 
         <div className="fixed inset-x-0 bottom-0 z-[75] border-t border-green-100 bg-white px-3 py-2 shadow-2xl lg:hidden">
-          <nav className="grid grid-cols-4 gap-1 text-center text-xs font-semibold text-green-900">
+          <nav className="grid grid-cols-4 gap-1 text-center text-sm font-semibold text-green-900">
             <Link href="/app/painel" className="rounded-xl px-2 py-2">
               Painel
             </Link>
