@@ -16,5 +16,10 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/app/painel/:path*", "/app/animais/:path*", "/app/fazendas/:path*"],
+  matcher: [
+    "/app/painel/:path*",
+    "/app/animais/:path*",
+    "/app/fazendas/:path*",
+    "/app/pessoas/:path*",
+  ],
 };

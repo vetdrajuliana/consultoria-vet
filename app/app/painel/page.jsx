@@ -22,6 +22,12 @@ const cards = [
     title: "Animais",
     description: "Cadastro e controle de animais e lotes.",
   },
+  {
+    href: "/app/pessoas",
+    initials: "PES",
+    title: "Pessoas",
+    description: "Clientes, proprietarios, funcionarios e contatos.",
+  },
 ];
 
 export default function PainelPage() {
@@ -48,7 +54,7 @@ export default function PainelPage() {
       </section>
 
       <section className="px-6 py-12">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
           {cards.map((card) => (
             <a
               key={card.href}
