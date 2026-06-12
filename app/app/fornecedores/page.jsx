@@ -66,20 +66,29 @@ export default function Fornecedores() {
   }
 
   async function salvarFornecedor() {
-    if (!form.nome || !form.tipoProduto) {
-      alert("Preencha nome e tipo de produto.");
+    const dadosFornecedor = {
+      ...form,
+      nome: form.nome.trim(),
+      cnpj: form.cnpj.trim(),
+      email: form.email.trim(),
+      telefone: form.telefone.trim(),
+      tipoProduto: form.tipoProduto.trim(),
+    };
+
+    if (!dadosFornecedor.nome || !dadosFornecedor.tipoProduto) {
+      alert("Preencha nome do fornecedor e tipo de produto.");
       return;
     }
 
     if (fornecedorEditando) {
       await db.fornecedores.update(fornecedorEditando.id, {
-        ...form,
+        ...dadosFornecedor,
         status: fornecedorEditando.status || "ativo",
       });
       setFornecedorEditando(null);
     } else {
       await db.fornecedores.add({
-        ...form,
+        ...dadosFornecedor,
         status: "ativo",
         createdAt: new Date().toISOString(),
       });
@@ -156,7 +165,7 @@ export default function Fornecedores() {
               <div className="grid md:grid-cols-2 gap-6">
                 <input
                   type="text"
-                  placeholder="Nome *"
+                  placeholder="Nome do fornecedor *"
                   value={form.nome}
                   onChange={(e) => atualizarCampo("nome", e.target.value)}
                   required
