@@ -242,39 +242,39 @@ export default function PainelQuickAccess() {
   }
 
   return (
-    <section className="mt-10 lg:mt-6">
-      <div className="mb-6 flex items-center justify-between lg:mb-4">
-        <h2 className="text-3xl font-bold text-[#10251b]">Acesso rápido</h2>
+    <section className="mt-10 lg:mt-5">
+      <div className="mb-6 flex items-center justify-between lg:mb-3">
+        <h2 className="text-3xl font-bold text-[#10251b] lg:text-2xl">Acesso rápido</h2>
 
         <button
           type="button"
           onClick={openModal}
-          className="rounded-xl border border-green-100 bg-white px-4 py-3 text-base font-semibold text-green-900 shadow-sm transition hover:border-green-200 hover:bg-green-50"
+          className="rounded-xl border border-green-100 bg-white px-4 py-3 text-base font-semibold text-green-900 shadow-sm transition hover:border-green-200 hover:bg-green-50 lg:py-2 lg:text-sm"
         >
           Personalizar
         </button>
       </div>
 
-      <div className="grid gap-7 md:grid-cols-3">
+      <div className="grid gap-7 md:grid-cols-3 lg:gap-5">
         {cards.map((card) => (
           <Link
             key={card.href}
             href={card.href}
-            className="group rounded-2xl border border-green-50 bg-white p-8 text-center shadow-md transition hover:-translate-y-1 hover:shadow-xl lg:p-5"
+            className="group rounded-2xl border border-green-50 bg-white p-8 text-center shadow-md transition hover:-translate-y-1 hover:shadow-xl lg:p-4"
           >
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100 text-green-800 transition group-hover:bg-green-200 lg:h-14 lg:w-14">
               <QuickAccessIcon name={card.icon} />
             </div>
 
-            <h3 className="mt-7 text-2xl font-bold text-[#10251b] lg:mt-4 lg:text-2xl">
+            <h3 className="mt-7 text-2xl font-bold text-[#10251b] lg:mt-3 lg:text-xl">
               {card.title}
             </h3>
 
-            <p className="mx-auto mt-4 max-w-xs text-lg leading-7 text-gray-600 lg:mt-2 lg:text-base lg:leading-6">
+            <p className="mx-auto mt-4 max-w-xs text-lg leading-7 text-gray-600 lg:mt-2 lg:text-sm lg:leading-5">
               {card.description}
             </p>
 
-            <span className="mt-7 inline-flex w-full max-w-56 items-center justify-center gap-3 rounded-xl bg-green-50 px-5 py-3 text-lg font-semibold text-green-900 lg:mt-4 lg:py-2 lg:text-base">
+            <span className="mt-7 inline-flex w-full max-w-56 items-center justify-center gap-3 rounded-xl bg-green-50 px-5 py-3 text-lg font-semibold text-green-900 lg:mt-3 lg:py-2 lg:text-sm">
               Acessar <span>›</span>
             </span>
           </Link>

@@ -12,7 +12,7 @@ export const metadata = {
 export default function AppPage() {
   return (
     <main
-      className="fixed inset-0 z-[10000] flex min-h-screen items-center justify-center overflow-hidden bg-[#12351f] px-5 py-10 text-white"
+      className="fixed inset-0 z-[10000] flex min-h-dvh items-center justify-center overflow-hidden bg-[#12351f] px-5 py-4 text-white md:py-6"
       style={{
         backgroundImage:
           "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.2)), url('/app-login-bg.png')",
@@ -23,24 +23,24 @@ export default function AppPage() {
       <div className="absolute inset-0 bg-gradient-to-b from-white/15 via-transparent to-black/45" />
       <div className="absolute inset-0 bg-[#12351f]/10" />
 
-      <section className="relative z-10 flex min-h-[calc(100vh-5rem)] w-full max-w-5xl flex-col items-center text-center">
-        <div className="flex flex-1 flex-col items-center justify-center pt-12 md:pt-20">
+      <section className="relative z-10 flex h-full min-h-0 w-full max-w-5xl flex-col items-center text-center">
+        <div className="flex min-h-0 flex-1 flex-col items-center justify-center pt-4 md:pt-8">
           <img
             src="/pecuaria-logo.webp"
             alt="PecuarIA - Gestao inteligente para a pecuaria"
             width="900"
             height="319"
-            className="mb-10 w-full max-w-[540px] object-contain drop-shadow-[0_2px_18px_rgba(255,255,255,0.28)] md:mb-12"
+            className="mb-6 w-full max-w-[420px] object-contain drop-shadow-[0_2px_18px_rgba(255,255,255,0.28)] md:mb-8 md:max-w-[500px]"
           />
 
           <LoginForm />
         </div>
 
-        <footer className="grid w-full max-w-4xl gap-4 pt-8 text-base font-medium text-white md:grid-cols-2 md:text-lg">
+        <footer className="grid w-full max-w-4xl gap-3 pb-1 pt-4 text-sm font-medium text-white md:grid-cols-2 md:text-base">
           <p className="flex items-center justify-center gap-3">
             <svg
               aria-hidden="true"
-              className="h-8 w-8"
+              className="h-6 w-6"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
