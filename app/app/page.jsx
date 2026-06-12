@@ -24,19 +24,21 @@ export default function AppPage() {
       <div className="absolute inset-0 bg-gradient-to-b from-white/15 via-transparent to-black/45" />
       <div className="absolute inset-0 bg-[#12351f]/10" />
 
-      <section className="relative z-10 flex min-h-[calc(100vh-5rem)] w-full max-w-5xl flex-col items-center justify-center text-center">
-        <Image
-          src="/pecuaria-logo.png"
-          alt="PecuarIA - Gestao inteligente para a pecuaria"
-          width={1774}
-          height={887}
-          priority
-          className="mb-12 w-full max-w-[640px] object-contain drop-shadow-[0_2px_18px_rgba(255,255,255,0.28)]"
-        />
+      <section className="relative z-10 flex min-h-[calc(100vh-5rem)] w-full max-w-5xl flex-col items-center text-center">
+        <div className="flex flex-1 flex-col items-center justify-center pt-12 md:pt-20">
+          <Image
+            src="/pecuaria-logo.png"
+            alt="PecuarIA - Gestao inteligente para a pecuaria"
+            width={1774}
+            height={887}
+            priority
+            className="mb-10 w-full max-w-[640px] object-contain drop-shadow-[0_2px_18px_rgba(255,255,255,0.28)] md:mb-12"
+          />
 
-        <LoginForm />
+          <LoginForm />
+        </div>
 
-        <footer className="mt-auto grid w-full max-w-4xl gap-4 pt-12 text-base font-medium text-white md:grid-cols-2 md:text-lg">
+        <footer className="grid w-full max-w-4xl gap-4 pt-8 text-base font-medium text-white md:grid-cols-2 md:text-lg">
           <p className="flex items-center justify-center gap-3">
             <svg
               aria-hidden="true"
