@@ -1,4 +1,5 @@
 import LoginForm from "./LoginForm";
+import Image from "next/image";
 
 export const metadata = {
   title: "PecuarIA | Dra. Juliana Moraes",
@@ -24,40 +25,14 @@ export default function AppPage() {
       <div className="absolute inset-0 bg-[#12351f]/10" />
 
       <section className="relative z-10 flex min-h-[calc(100vh-5rem)] w-full max-w-5xl flex-col items-center justify-center text-center">
-        <div className="mb-12 flex items-center justify-center gap-5 text-[#064626] drop-shadow-[0_2px_18px_rgba(255,255,255,0.35)]">
-          <svg
-            aria-hidden="true"
-            className="h-24 w-24 text-[#064626]"
-            viewBox="0 0 96 96"
-            fill="none"
-          >
-            <path
-              d="M25 40c-8-9-11-18-8-24 12 2 21 8 26 18"
-              fill="currentColor"
-              opacity="0.95"
-            />
-            <path
-              d="M71 40c8-9 11-18 8-24-12 2-21 8-26 18"
-              fill="currentColor"
-              opacity="0.95"
-            />
-            <path
-              d="M48 18c18 0 31 14 31 34 0 18-12 32-31 32S17 70 17 52c0-20 13-34 31-34Z"
-              fill="white"
-              opacity="0.92"
-            />
-            <path
-              d="M31 34c6-7 28-7 34 0 6 8 7 27 0 37-6 8-28 8-34 0-7-10-6-29 0-37Z"
-              fill="currentColor"
-            />
-            <path d="M38 47h1M57 47h1" stroke="white" strokeWidth="6" strokeLinecap="round" />
-            <path d="M44 61c2 2 6 2 8 0" stroke="white" strokeWidth="4" strokeLinecap="round" />
-          </svg>
-
-          <h1 className="text-6xl font-black tracking-tight md:text-8xl">
-            Pecuar<span className="text-[#3bbf62]">IA</span>
-          </h1>
-        </div>
+        <Image
+          src="/pecuaria-logo.png"
+          alt="PecuarIA - Gestao inteligente para a pecuaria"
+          width={1774}
+          height={887}
+          priority
+          className="mb-12 w-full max-w-[640px] object-contain drop-shadow-[0_2px_18px_rgba(255,255,255,0.28)]"
+        />
 
         <LoginForm />
 
