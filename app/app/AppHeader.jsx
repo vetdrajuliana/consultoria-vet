@@ -68,10 +68,6 @@ export default function AppHeader() {
 
           <MenuSuspenso label="Manejos" items={manejos} />
 
-          <Link href="/app/estoque" className={linkClass}>
-            Estoque
-          </Link>
-
           <Link href="/app/nutricao" className={linkClass}>
             Nutrição
           </Link>

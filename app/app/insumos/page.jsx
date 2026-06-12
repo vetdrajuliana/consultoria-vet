@@ -208,7 +208,7 @@ export default function Insumos() {
                 }}
                 className="bg-white hover:bg-green-50 text-green-800 border border-green-200 px-6 py-3 rounded-2xl font-semibold shadow-sm transition-all"
               >
-                + Entrada por Nota Fiscal
+                + Cadastro Nota Fiscal
               </button>
 
               <button
@@ -219,7 +219,7 @@ export default function Insumos() {
                 }}
                 className="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all"
               >
-                + Novo Insumo
+                + Cadastro de Insumos
               </button>
             </div>
           </div>
@@ -293,7 +293,7 @@ export default function Insumos() {
           {mostrarEntrada && (
             <div className="bg-white rounded-3xl shadow-md p-8 border border-green-100 mb-10">
               <h2 className="text-2xl font-bold text-green-900 mb-6">
-                Entrada - Nota Fiscal
+                Cadastro Nota Fiscal
               </h2>
 
               <div className="grid md:grid-cols-4 gap-6">
