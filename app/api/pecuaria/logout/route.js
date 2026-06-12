@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { getSessionCookieName } from "../../../../lib/app-auth";
 
-export async function POST() {
-  const response = NextResponse.json({ ok: true });
+export async function POST(request) {
+  const response = NextResponse.redirect(new URL("/app", request.url), 303);
 
   response.cookies.set({
     name: getSessionCookieName(),
