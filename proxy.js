@@ -20,6 +20,7 @@ export const config = {
     "/app/painel/:path*",
     "/app/animais/:path*",
     "/app/fazendas/:path*",
+    "/app/fornecedores/:path*",
     "/app/pessoas/:path*",
     "/app/usuarios/:path*",
   ],
