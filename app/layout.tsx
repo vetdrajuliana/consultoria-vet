@@ -1,5 +1,8 @@
+"use client";
+
 import "./globals.css";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({
@@ -7,10 +10,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const hideHeader = pathname === "/app" || pathname.startsWith("/app/");
+
   return (
     <html lang="pt-BR">
       <body className="overflow-x-hidden">
-        <header className="bg-[#f4efe6]/95 backdrop-blur-md border-b border-[#e5dccd] fixed top-0 left-0 right-0 z-[9999]">
+        {!hideHeader ? (
+        <>
+          <header className="bg-[#f4efe6]/95 backdrop-blur-md border-b border-[#e5dccd] fixed top-0 left-0 right-0 z-[9999]">
           <nav className="max-w-7xl mx-auto px-5 md:px-14 py-2">
 
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -116,9 +124,11 @@ export default function RootLayout({
               </div>
             </div>
           </nav>
-        </header>
+          </header>
 
-        <div className="h-[170px] md:h-[140px]"></div>
+          <div className="h-[170px] md:h-[140px]"></div>
+        </>
+        ) : null}
 
         {children}
 
