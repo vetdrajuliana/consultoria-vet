@@ -20,18 +20,6 @@ const cards = [
     title: "Animais",
     description: "Cadastro e controle de animais e lotes.",
   },
-  {
-    href: "/app/visitas",
-    initials: "VIS",
-    title: "Visitas",
-    description: "Relatorios tecnicos e acompanhamento.",
-  },
-  {
-    href: "/app/relatorios",
-    initials: "REL",
-    title: "Relatorios",
-    description: "Indicadores e resultados da fazenda.",
-  },
 ];
 
 export default function AppPage() {
@@ -56,7 +44,7 @@ export default function AppPage() {
       </section>
 
       <section className="px-6 py-12">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-6">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
           {cards.map((card) => (
             <a
               key={card.href}
