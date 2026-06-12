@@ -23,6 +23,7 @@ export const config = {
     "/app/fornecedores/:path*",
     "/app/insumos/:path*",
     "/app/manejos/:path*",
+    "/app/nutricao/:path*",
     "/app/pessoas/:path*",
     "/app/usuarios/:path*",
   ],
