@@ -5,11 +5,37 @@ import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [mensagem, setMensagem] = useState("");
+  const [enviando, setEnviando] = useState(false);
   const router = useRouter();
 
-  function acessarPainel(event) {
+  async function acessarPainel(event) {
     event.preventDefault();
+    setMensagem("");
+    setEnviando(true);
+
+    const formData = new FormData(event.currentTarget);
+    const response = await fetch("/api/pecuaria/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.get("email"),
+        password: formData.get("password"),
+      }),
+    });
+
+    setEnviando(false);
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => null);
+      setMensagem(data?.message || "Nao foi possivel acessar.");
+      return;
+    }
+
     router.push("/app/painel");
+    router.refresh();
   }
 
   return (
@@ -34,6 +60,7 @@ export default function LoginForm() {
           name="email"
           placeholder="E-mail"
           autoComplete="email"
+          required
           className="w-full bg-transparent text-xl text-[#1f2933] outline-none placeholder:text-[#7b827e]"
         />
       </label>
@@ -58,6 +85,7 @@ export default function LoginForm() {
           name="password"
           placeholder="Senha"
           autoComplete="current-password"
+          required
           className="w-full bg-transparent text-xl text-[#1f2933] outline-none placeholder:text-[#7b827e]"
         />
         <button
@@ -84,9 +112,10 @@ export default function LoginForm() {
 
       <button
         type="submit"
+        disabled={enviando}
         className="flex h-20 w-full items-center justify-center gap-4 rounded-2xl bg-[#073f24] text-2xl font-bold text-white shadow-[0_18px_45px_rgba(0,0,0,0.22)] transition hover:bg-[#0b5a34]"
       >
-        Acessar
+        {enviando ? "Acessando..." : "Acessar"}
         <svg
           aria-hidden="true"
           className="h-8 w-8"
@@ -102,6 +131,12 @@ export default function LoginForm() {
           <path d="M15 12H3" />
         </svg>
       </button>
+
+      {mensagem ? (
+        <p className="rounded-2xl bg-white/90 px-5 py-3 text-base font-semibold text-red-700 shadow">
+          {mensagem}
+        </p>
+      ) : null}
     </form>
   );
 }
