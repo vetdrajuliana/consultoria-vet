@@ -6,15 +6,48 @@ import AppHeader from "../AppHeader";
 
 const formInicial = {
   nome: "",
-  tipo: "",
-  funcao: "",
-  telefone: "",
+  login: "",
   email: "",
-  documento: "",
-  cidade: "",
-  estado: "",
-  observacoes: "",
+  senha: "",
+  telefone: "",
+  funcao: "",
 };
+
+const funcoes = [
+  {
+    valor: "Administrador geral",
+    acesso: "total",
+    descricao: "Todas as funções do app disponíveis.",
+  },
+  {
+    valor: "Proprietário da fazenda",
+    acesso: "total",
+    descricao: "Todas as funções do app disponíveis.",
+  },
+  {
+    valor: "Administrador da fazenda",
+    acesso: "limitado",
+    descricao: "Acesso limitado conforme as permissões do perfil.",
+  },
+  {
+    valor: "Veterinário",
+    acesso: "limitado",
+    descricao: "Acesso limitado conforme as permissões do perfil.",
+  },
+  {
+    valor: "Vaqueiro",
+    acesso: "limitado",
+    descricao: "Acesso limitado conforme as permissões do perfil.",
+  },
+];
+
+function obterFuncao(valor) {
+  return funcoes.find((funcao) => funcao.valor === valor);
+}
+
+function obterAcesso(valor) {
+  return obterFuncao(valor)?.acesso || "limitado";
+}
 
 export default function Usuarios() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -57,20 +90,25 @@ export default function Usuarios() {
   }
 
   async function salvarPessoa() {
-    if (!form.nome) {
-      alert("Preencha o nome do usuário.");
+    if (!form.nome || !form.email || !form.senha || !form.funcao) {
+      alert("Preencha nome do usuário, e-mail, senha e função.");
       return;
     }
 
+    const dadosUsuario = {
+      ...form,
+      acesso: obterAcesso(form.funcao),
+    };
+
     if (pessoaEditando) {
       await db.pessoas.update(pessoaEditando.id, {
-        ...form,
+        ...dadosUsuario,
         status: pessoaEditando.status || "ativa",
       });
       setPessoaEditando(null);
     } else {
       await db.pessoas.add({
-        ...form,
+        ...dadosUsuario,
         status: "ativa",
         createdAt: new Date().toISOString(),
       });
@@ -85,14 +123,11 @@ export default function Usuarios() {
     setPessoaEditando(pessoa);
     setForm({
       nome: pessoa.nome || "",
-      tipo: pessoa.tipo || "",
-      funcao: pessoa.funcao || "",
-      telefone: pessoa.telefone || "",
+      login: pessoa.login || "",
       email: pessoa.email || "",
-      documento: pessoa.documento || "",
-      cidade: pessoa.cidade || "",
-      estado: pessoa.estado || "",
-      observacoes: pessoa.observacoes || "",
+      senha: pessoa.senha || "",
+      telefone: pessoa.telefone || "",
+      funcao: pessoa.funcao || "",
     });
     setMostrarFormulario(true);
   }
@@ -149,82 +184,70 @@ export default function Usuarios() {
               <div className="grid md:grid-cols-2 gap-6">
                 <input
                   type="text"
-                  placeholder="Nome completo"
+                  placeholder="Nome do usuário *"
                   value={form.nome}
                   onChange={(e) => atualizarCampo("nome", e.target.value)}
-                  className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
-                />
-
-                <select
-                  value={form.tipo}
-                  onChange={(e) => atualizarCampo("tipo", e.target.value)}
-                  className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700 bg-white"
-                >
-                  <option value="" disabled hidden>
-                    Tipo de usuário
-                  </option>
-                  <option value="Cliente">Cliente</option>
-                  <option value="Proprietario">Proprietario</option>
-                  <option value="Funcionario">Funcionario</option>
-                  <option value="Fornecedor">Fornecedor</option>
-                  <option value="Tecnico">Tecnico</option>
-                  <option value="Outro">Outro</option>
-                </select>
-
-                <input
-                  type="text"
-                  placeholder="Funcao / cargo"
-                  value={form.funcao}
-                  onChange={(e) => atualizarCampo("funcao", e.target.value)}
+                  required
                   className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
                 />
 
                 <input
                   type="text"
-                  placeholder="Telefone / WhatsApp"
-                  value={form.telefone}
-                  onChange={(e) => atualizarCampo("telefone", e.target.value)}
+                  placeholder="Login"
+                  value={form.login}
+                  onChange={(e) => atualizarCampo("login", e.target.value)}
                   className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
                 />
 
                 <input
                   type="email"
-                  placeholder="E-mail"
+                  placeholder="E-mail *"
                   value={form.email}
                   onChange={(e) => atualizarCampo("email", e.target.value)}
+                  required
+                  className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
+                />
+
+                <input
+                  type="password"
+                  placeholder="Senha de acesso *"
+                  value={form.senha}
+                  onChange={(e) => atualizarCampo("senha", e.target.value)}
+                  required
                   className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
                 />
 
                 <input
                   type="text"
-                  placeholder="CPF/CNPJ ou documento"
-                  value={form.documento}
-                  onChange={(e) => atualizarCampo("documento", e.target.value)}
+                  placeholder="Telefone"
+                  value={form.telefone}
+                  onChange={(e) => atualizarCampo("telefone", e.target.value)}
                   className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
                 />
 
-                <input
-                  type="text"
-                  placeholder="Cidade"
-                  value={form.cidade}
-                  onChange={(e) => atualizarCampo("cidade", e.target.value)}
-                  className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
-                />
+                <div>
+                  <select
+                    value={form.funcao}
+                    onChange={(e) => atualizarCampo("funcao", e.target.value)}
+                    required
+                    className="w-full border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700 bg-white"
+                  >
+                    <option value="" disabled hidden>
+                      Função *
+                    </option>
+                    {funcoes.map((funcao) => (
+                      <option key={funcao.valor} value={funcao.valor}>
+                        {funcao.valor}
+                      </option>
+                    ))}
+                  </select>
 
-                <input
-                  type="text"
-                  placeholder="Estado"
-                  value={form.estado}
-                  onChange={(e) => atualizarCampo("estado", e.target.value)}
-                  className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
-                />
-
-                <textarea
-                  placeholder="Observacoes"
-                  value={form.observacoes}
-                  onChange={(e) => atualizarCampo("observacoes", e.target.value)}
-                  className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700 md:col-span-2 min-h-[120px]"
-                ></textarea>
+                  {form.funcao && (
+                    <p className="text-sm text-gray-600 mt-2 px-2">
+                      {obterFuncao(form.funcao)?.descricao}
+                    </p>
+                  )}
+                </div>
               </div>
 
               <div className="flex gap-4 mt-8">
@@ -232,7 +255,7 @@ export default function Usuarios() {
                   onClick={salvarPessoa}
                   className="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-2xl font-semibold"
                 >
-                  {pessoaEditando ? "Salvar Alteracoes" : "Salvar Usuário"}
+                  {pessoaEditando ? "Salvar Alterações" : "Salvar Usuário"}
                 </button>
 
                 <button
@@ -268,23 +291,25 @@ export default function Usuarios() {
                     </h3>
 
                     <p className="text-gray-600 mt-2">
-                      Tipo: {pessoa.tipo || "Nao informado"}
+                      Login: {pessoa.login || "Não informado"}
                     </p>
 
                     <p className="text-gray-600 mt-1">
-                      Funcao: {pessoa.funcao || "Nao informada"}
+                      E-mail: {pessoa.email || "Não informado"}
                     </p>
 
                     <p className="text-gray-600 mt-1">
-                      Telefone: {pessoa.telefone || "Nao informado"}
+                      Telefone: {pessoa.telefone || "Não informado"}
                     </p>
 
                     <p className="text-gray-600 mt-1">
-                      Cidade: {pessoa.cidade || "Nao informada"}
+                      Função: {pessoa.funcao || "Não informada"}
                     </p>
 
                     <p className="mt-4 inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
-                      {pessoa.status || "ativa"}
+                      {pessoa.acesso === "total"
+                        ? "Acesso total"
+                        : "Acesso limitado"}
                     </p>
 
                     <div className="flex gap-3 mt-6">
