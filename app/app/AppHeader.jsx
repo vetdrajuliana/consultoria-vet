@@ -28,13 +28,13 @@ const menuPrincipal = [
 ];
 
 const iconClass =
-  "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/25 bg-white/14 text-xs font-black tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]";
+  "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/25 bg-white/14 text-[11px] font-black tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]";
 
 function MenuItem({ item }) {
   if (item.children) {
     return (
       <details className="group">
-        <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-white transition hover:bg-white/12">
+        <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-white transition hover:bg-white/12">
           <span className="flex items-center gap-3">
             <span className={iconClass}>{item.icon}</span>
             <span className="font-bold">{item.label}</span>
@@ -44,12 +44,12 @@ function MenuItem({ item }) {
           </span>
         </summary>
 
-        <div className="mt-1 space-y-1 pl-14">
+        <div className="mt-1 space-y-0.5 pl-12">
           {item.children.map((child) => (
             <Link
               key={child.href}
               href={child.href}
-              className="block rounded-xl px-3 py-2 text-sm font-semibold text-white/78 transition hover:bg-white/12 hover:text-white"
+              className="block rounded-xl px-3 py-1.5 text-sm font-semibold text-white/78 transition hover:bg-white/12 hover:text-white"
             >
               {child.label}
             </Link>
@@ -62,7 +62,7 @@ function MenuItem({ item }) {
   return (
     <Link
       href={item.href}
-      className="flex items-center gap-3 rounded-xl px-4 py-3 text-white transition hover:bg-white/12"
+      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-white transition hover:bg-white/12"
     >
       <span className={iconClass}>{item.icon}</span>
       <span className="font-bold">{item.label}</span>
@@ -83,7 +83,7 @@ export default function AppHeader() {
       `}</style>
 
       <div className="pecuaria-app-frame">
-        <aside className="fixed inset-y-0 left-0 z-[80] hidden w-72 flex-col overflow-y-auto bg-[#052514] text-white shadow-2xl lg:flex">
+        <aside className="fixed inset-y-0 left-0 z-[80] hidden h-screen w-72 flex-col overflow-hidden bg-[#052514] text-white shadow-2xl lg:flex">
           <div
             className="absolute inset-x-0 bottom-0 h-72 opacity-18"
             style={{
@@ -93,27 +93,27 @@ export default function AppHeader() {
             }}
           />
 
-          <div className="relative z-10 flex min-h-full flex-col p-5">
+          <div className="relative z-10 flex h-full flex-col p-4">
             <Link
               href="/app/painel"
-              className="mb-8 rounded-3xl bg-white px-5 py-5 shadow-xl ring-1 ring-white/40"
+              className="mb-5 rounded-3xl bg-white px-5 py-4 shadow-xl ring-1 ring-white/40"
             >
               <img
                 src="/pecuaria-logo.webp"
                 alt="PecuarIA"
-                className="h-auto w-full object-contain"
+                className="mx-auto h-auto w-56 object-contain"
               />
             </Link>
 
-            <nav className="space-y-2 text-base">
+            <nav className="space-y-1 text-sm">
               {menuPrincipal.map((item) => (
                 <MenuItem key={item.label} item={item} />
               ))}
             </nav>
 
             <div className="mt-auto rounded-2xl border border-white/18 bg-white/8">
-              <div className="flex items-center gap-3 border-b border-white/10 p-4">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 font-bold text-white">
+              <div className="flex items-center gap-3 border-b border-white/10 p-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-green-500 font-bold text-white">
                   JM
                 </span>
                 <div>
@@ -125,7 +125,7 @@ export default function AppHeader() {
               <form action="/api/pecuaria/logout" method="post">
                 <button
                   type="submit"
-                  className="flex w-full items-center gap-3 px-5 py-4 text-left font-semibold text-white transition hover:bg-white/12"
+                  className="flex w-full items-center gap-3 px-4 py-3 text-left font-semibold text-white transition hover:bg-white/12"
                 >
                   <span className="text-xl">S</span>
                   Sair
