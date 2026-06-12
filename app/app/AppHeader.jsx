@@ -28,11 +28,11 @@ const menuPrincipal = [
 ];
 
 const iconClass =
-  "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/25 bg-white/14 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]";
+  "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/25 bg-white/14 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]";
 
 function MenuIcon({ name }) {
   const common = {
-    className: "h-5 w-5",
+    className: "h-[18px] w-[18px]",
     fill: "none",
     stroke: "currentColor",
     strokeLinecap: "round",
@@ -123,7 +123,7 @@ function MenuItem({ item }) {
   if (item.children) {
     return (
       <details className="group">
-        <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-white transition hover:bg-white/12">
+        <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-1.5 text-white transition hover:bg-white/12">
           <span className="flex items-center gap-3">
             <span className={iconClass}>
               <MenuIcon name={item.icon} />
@@ -135,12 +135,12 @@ function MenuItem({ item }) {
           </span>
         </summary>
 
-        <div className="mt-1 space-y-0.5 pl-12">
+        <div className="mt-0.5 space-y-0 pl-11">
           {item.children.map((child) => (
             <Link
               key={child.href}
               href={child.href}
-              className="block rounded-xl px-3 py-1.5 text-sm font-semibold text-white/78 transition hover:bg-white/12 hover:text-white"
+              className="block rounded-xl px-3 py-1 text-xs font-semibold text-white/78 transition hover:bg-white/12 hover:text-white"
             >
               {child.label}
             </Link>
@@ -153,7 +153,7 @@ function MenuItem({ item }) {
   return (
     <Link
       href={item.href}
-      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-white transition hover:bg-white/12"
+      className="flex items-center gap-3 rounded-xl px-3 py-1.5 text-white transition hover:bg-white/12"
     >
       <span className={iconClass}>
         <MenuIcon name={item.icon} />
@@ -186,10 +186,10 @@ export default function AppHeader() {
             }}
           />
 
-          <div className="relative z-10 flex h-full flex-col p-4">
+          <div className="relative z-10 flex h-full flex-col p-3">
             <Link
               href="/app/painel"
-              className="mb-5 flex justify-center px-1 py-2"
+              className="mb-2 flex justify-center px-1 py-1"
             >
               <img
                 src="/pecuaria-logo-menu.png"
@@ -198,15 +198,15 @@ export default function AppHeader() {
               />
             </Link>
 
-            <nav className="space-y-1 text-sm">
+            <nav className="space-y-0.5 text-sm">
               {menuPrincipal.map((item) => (
                 <MenuItem key={item.label} item={item} />
               ))}
             </nav>
 
             <div className="mt-auto rounded-2xl border border-white/18 bg-white/8">
-              <div className="flex items-center gap-3 border-b border-white/10 p-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-green-500 font-bold text-white">
+              <div className="flex items-center gap-3 border-b border-white/10 p-2.5">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-sm font-bold text-white">
                   JM
                 </span>
                 <div>
@@ -218,7 +218,7 @@ export default function AppHeader() {
               <form action="/api/pecuaria/logout" method="post">
                 <button
                   type="submit"
-                  className="flex w-full items-center gap-3 px-4 py-3 text-left font-semibold text-white transition hover:bg-white/12"
+                  className="flex w-full items-center gap-3 px-4 py-2.5 text-left font-semibold text-white transition hover:bg-white/12"
                 >
                   <span className="text-xl">S</span>
                   Sair
