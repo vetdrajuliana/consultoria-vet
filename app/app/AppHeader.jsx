@@ -96,12 +96,12 @@ export default function AppHeader() {
           <div className="relative z-10 flex h-full flex-col p-4">
             <Link
               href="/app/painel"
-              className="mb-5 rounded-3xl bg-white px-5 py-4 shadow-xl ring-1 ring-white/40"
+              className="mb-5 flex justify-center px-1 py-2"
             >
               <img
-                src="/pecuaria-logo.webp"
+                src="/pecuaria-logo-menu.png"
                 alt="PecuarIA"
-                className="mx-auto h-auto w-56 object-contain"
+                className="h-auto w-60 object-contain drop-shadow-[0_8px_18px_rgba(0,0,0,0.22)]"
               />
             </Link>
 
