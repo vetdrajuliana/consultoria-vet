@@ -3,10 +3,29 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+const savedLoginKey = "pecuaria_saved_login";
+
+function getSavedLogin() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    return JSON.parse(window.localStorage.getItem(savedLoginKey) || "null");
+  } catch {
+    window.localStorage.removeItem(savedLoginKey);
+    return null;
+  }
+}
+
 export default function LoginForm() {
+  const [dadosSalvos] = useState(getSavedLogin);
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mensagem, setMensagem] = useState("");
   const [enviando, setEnviando] = useState(false);
+  const [lembrarLogin, setLembrarLogin] = useState(Boolean(dadosSalvos));
+  const [email, setEmail] = useState(dadosSalvos?.email || "");
+  const [password, setPassword] = useState(dadosSalvos?.password || "");
   const router = useRouter();
 
   async function acessarPainel(event) {
@@ -14,15 +33,14 @@ export default function LoginForm() {
     setMensagem("");
     setEnviando(true);
 
-    const formData = new FormData(event.currentTarget);
     const response = await fetch("/api/pecuaria/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: formData.get("email"),
-        password: formData.get("password"),
+        email,
+        password,
       }),
     });
 
@@ -32,6 +50,15 @@ export default function LoginForm() {
       const data = await response.json().catch(() => null);
       setMensagem(data?.message || "Nao foi possivel acessar.");
       return;
+    }
+
+    if (lembrarLogin) {
+      window.localStorage.setItem(
+        savedLoginKey,
+        JSON.stringify({ email, password }),
+      );
+    } else {
+      window.localStorage.removeItem(savedLoginKey);
     }
 
     router.push("/app/painel");
@@ -60,6 +87,8 @@ export default function LoginForm() {
           name="email"
           placeholder="E-mail"
           autoComplete="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
           required
           className="w-full bg-transparent text-xl text-[#1f2933] outline-none placeholder:text-[#7b827e]"
         />
@@ -85,6 +114,8 @@ export default function LoginForm() {
           name="password"
           placeholder="Senha"
           autoComplete="current-password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
           required
           className="w-full bg-transparent text-xl text-[#1f2933] outline-none placeholder:text-[#7b827e]"
         />
@@ -108,6 +139,22 @@ export default function LoginForm() {
             <circle cx="12" cy="12" r="3" />
           </svg>
         </button>
+      </label>
+
+      <label className="flex items-center gap-3 rounded-2xl bg-white/85 px-5 py-3 text-left text-base font-semibold text-[#1f2933] shadow backdrop-blur">
+        <input
+          type="checkbox"
+          checked={lembrarLogin}
+          onChange={(event) => {
+            setLembrarLogin(event.target.checked);
+
+            if (!event.target.checked) {
+              window.localStorage.removeItem(savedLoginKey);
+            }
+          }}
+          className="h-5 w-5 accent-[#073f24]"
+        />
+        Salvar login neste navegador
       </label>
 
       <button
