@@ -16,12 +16,19 @@ const manejos = [
   { href: "/app/manejos/movimentacao", label: "Movimentação" },
 ];
 
+const nutricao = [
+  { href: "/app/nutricao/leitura-cocho", label: "Leitura de cocho" },
+  { href: "/app/nutricao/consumo-lote", label: "Consumo" },
+  { href: "/app/nutricao/dietas", label: "Dietas" },
+  { href: "/app/nutricao/estoque-insumos", label: "Estoque" },
+];
+
 const menuPrincipal = [
   { href: "/app/painel", label: "Painel da Fazenda", icon: "dashboard" },
   { label: "Cadastros", icon: "clipboard", children: cadastros },
   { href: "/app/rebanho", label: "Rebanho", icon: "cow" },
   { label: "Manejos", icon: "activity", children: manejos },
-  { href: "/app/nutricao", label: "Nutrição", icon: "leaf" },
+  { label: "Nutrição", icon: "leaf", children: nutricao },
   { href: "/app/financeiro", label: "Financeiro", icon: "money" },
   { href: "/app/relatorios", label: "Relatórios", icon: "file" },
   { href: "/app/configuracoes", label: "Configurações", icon: "settings" },
