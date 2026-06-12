@@ -19,6 +19,7 @@ export const config = {
   matcher: [
     "/app/painel/:path*",
     "/app/animais/:path*",
+    "/app/estoque/:path*",
     "/app/fazendas/:path*",
     "/app/fornecedores/:path*",
     "/app/insumos/:path*",
