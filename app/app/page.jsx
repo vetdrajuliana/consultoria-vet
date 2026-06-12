@@ -30,7 +30,7 @@ export default function AppPage() {
             alt="PecuarIA - Gestao inteligente para a pecuaria"
             width="900"
             height="319"
-            className="mb-10 w-full max-w-[640px] object-contain drop-shadow-[0_2px_18px_rgba(255,255,255,0.28)] md:mb-12"
+            className="mb-10 w-full max-w-[540px] object-contain drop-shadow-[0_2px_18px_rgba(255,255,255,0.28)] md:mb-12"
           />
 
           <LoginForm />
@@ -54,7 +54,7 @@ export default function AppPage() {
             Seus dados e sua fazenda sempre seguros.
           </p>
           <p className="flex items-center justify-center">
-            (c) 2026 PecuarIA. Todos os direitos reservados.
+            © 2026 PecuarIA. Todos os direitos reservados.
           </p>
         </footer>
       </section>
