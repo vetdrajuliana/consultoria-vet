@@ -1,5 +1,4 @@
 import LoginForm from "./LoginForm";
-import Image from "next/image";
 
 export const metadata = {
   title: "PecuarIA | Dra. Juliana Moraes",
@@ -26,12 +25,11 @@ export default function AppPage() {
 
       <section className="relative z-10 flex min-h-[calc(100vh-5rem)] w-full max-w-5xl flex-col items-center text-center">
         <div className="flex flex-1 flex-col items-center justify-center pt-12 md:pt-20">
-          <Image
-            src="/pecuaria-logo.png"
+          <img
+            src="/pecuaria-logo.webp"
             alt="PecuarIA - Gestao inteligente para a pecuaria"
-            width={1774}
-            height={887}
-            priority
+            width="900"
+            height="319"
             className="mb-10 w-full max-w-[640px] object-contain drop-shadow-[0_2px_18px_rgba(255,255,255,0.28)] md:mb-12"
           />
 
