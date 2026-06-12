@@ -8,16 +8,19 @@ const formInicial = {
   nome: "",
   nomeGenerico: "",
   tipo: "",
+  unidadeMedida: "",
 };
 
 const entradaInicial = {
   insumoId: "",
   notaFiscal: "",
   quantidade: "",
+  unidadeMedida: "",
   dataEntrada: "",
 };
 
 const tiposInsumo = ["Sanitário", "Alimentação", "Serviço"];
+const unidadesMedida = ["mL", "L", "kg", "ton"];
 
 export default function Insumos() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
@@ -97,10 +100,16 @@ export default function Insumos() {
       nome: form.nome.trim(),
       nomeGenerico: form.nomeGenerico.trim(),
       tipo: form.tipo.trim(),
+      unidadeMedida: form.unidadeMedida.trim(),
     };
 
-    if (!dadosInsumo.nome || !dadosInsumo.nomeGenerico || !dadosInsumo.tipo) {
-      alert("Preencha nome do insumo, nome genérico e tipo.");
+    if (
+      !dadosInsumo.nome ||
+      !dadosInsumo.nomeGenerico ||
+      !dadosInsumo.tipo ||
+      !dadosInsumo.unidadeMedida
+    ) {
+      alert("Preencha nome do insumo, nome genérico, tipo e unidade de medida.");
       return;
     }
 
@@ -130,9 +139,10 @@ export default function Insumos() {
     const insumo = insumos.find(
       (item) => String(item.id) === String(entrada.insumoId),
     );
+    const unidadeMedida = entrada.unidadeMedida || insumo?.unidadeMedida || "";
 
-    if (!insumo || !entrada.notaFiscal.trim() || !quantidade) {
-      alert("Preencha insumo, nota fiscal e quantidade.");
+    if (!insumo || !entrada.notaFiscal.trim() || !quantidade || !unidadeMedida) {
+      alert("Preencha insumo, nota fiscal, quantidade e unidade de medida.");
       return;
     }
 
@@ -146,12 +156,14 @@ export default function Insumos() {
       insumoNome: insumo.nome,
       notaFiscal: entrada.notaFiscal.trim(),
       quantidade,
+      unidadeMedida,
       dataEntrada: entrada.dataEntrada || new Date().toISOString().slice(0, 10),
       createdAt: new Date().toISOString(),
     });
 
     await db.insumos.update(insumo.id, {
       estoque: Number(insumo.estoque || 0) + quantidade,
+      unidadeMedida: insumo.unidadeMedida || unidadeMedida,
     });
 
     limparEntrada();
@@ -165,6 +177,7 @@ export default function Insumos() {
       nome: insumo.nome || "",
       nomeGenerico: insumo.nomeGenerico || "",
       tipo: insumo.tipo || "",
+      unidadeMedida: insumo.unidadeMedida || "",
     });
     setMostrarFormulario(true);
   }
@@ -230,7 +243,7 @@ export default function Insumos() {
                 {insumoEditando ? "Editar Insumo" : "Cadastro de Insumo"}
               </h2>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-4 gap-6">
                 <input
                   type="text"
                   placeholder="Nome do insumo *"
@@ -266,6 +279,24 @@ export default function Insumos() {
                     </option>
                   ))}
                 </select>
+
+                <select
+                  value={form.unidadeMedida}
+                  onChange={(e) =>
+                    atualizarCampo("unidadeMedida", e.target.value)
+                  }
+                  required
+                  className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700 bg-white"
+                >
+                  <option value="" disabled hidden>
+                    Unidade de medida *
+                  </option>
+                  {unidadesMedida.map((unidade) => (
+                    <option key={unidade} value={unidade}>
+                      {unidade}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="flex gap-4 mt-8">
@@ -296,10 +327,20 @@ export default function Insumos() {
                 Cadastro Nota Fiscal
               </h2>
 
-              <div className="grid md:grid-cols-4 gap-6">
+              <div className="grid md:grid-cols-5 gap-6">
                 <select
                   value={entrada.insumoId}
-                  onChange={(e) => atualizarEntrada("insumoId", e.target.value)}
+                  onChange={(e) => {
+                    const insumoSelecionado = insumos.find(
+                      (insumo) => String(insumo.id) === e.target.value,
+                    );
+
+                    setEntrada((entradaAtual) => ({
+                      ...entradaAtual,
+                      insumoId: e.target.value,
+                      unidadeMedida: insumoSelecionado?.unidadeMedida || "",
+                    }));
+                  }}
                   required
                   className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700 bg-white"
                 >
@@ -336,6 +377,24 @@ export default function Insumos() {
                   required
                   className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
                 />
+
+                <select
+                  value={entrada.unidadeMedida}
+                  onChange={(e) =>
+                    atualizarEntrada("unidadeMedida", e.target.value)
+                  }
+                  required
+                  className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700 bg-white"
+                >
+                  <option value="" disabled hidden>
+                    Unidade *
+                  </option>
+                  {unidadesMedida.map((unidade) => (
+                    <option key={unidade} value={unidade}>
+                      {unidade}
+                    </option>
+                  ))}
+                </select>
 
                 <input
                   type="date"
@@ -396,7 +455,8 @@ export default function Insumos() {
                       </p>
 
                       <p className="inline-block bg-white text-green-900 border border-green-200 px-4 py-2 rounded-full text-sm font-semibold">
-                        Estoque: {Number(insumo.estoque || 0)}
+                        Estoque: {Number(insumo.estoque || 0)}{" "}
+                        {insumo.unidadeMedida || ""}
                       </p>
                     </div>
 
@@ -444,7 +504,7 @@ export default function Insumos() {
                     </p>
 
                     <p className="text-gray-600 mt-1">
-                      Quantidade: {item.quantidade}
+                      Quantidade: {item.quantidade} {item.unidadeMedida || ""}
                     </p>
 
                     <p className="text-gray-600 mt-1">
