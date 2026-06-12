@@ -23,10 +23,10 @@ const cards = [
     description: "Cadastro e controle de animais e lotes.",
   },
   {
-    href: "/app/pessoas",
-    initials: "PES",
-    title: "Pessoas",
-    description: "Clientes, proprietarios, funcionarios e contatos.",
+    href: "/app/usuarios",
+    initials: "USR",
+    title: "Usuários",
+    description: "Clientes, proprietarios, funcionarios e acessos.",
   },
 ];
 

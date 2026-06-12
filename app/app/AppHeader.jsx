@@ -6,7 +6,7 @@ const cadastros = [
   { href: "/app/animais", label: "Animais" },
   { href: "/app/fornecedores", label: "Fornecedores" },
   { href: "/app/insumos", label: "Insumos" },
-  { href: "/app/pessoas", label: "Pessoas" },
+  { href: "/app/usuarios", label: "Usuários" },
 ];
 
 const linkClass =

@@ -21,5 +21,6 @@ export const config = {
     "/app/animais/:path*",
     "/app/fazendas/:path*",
     "/app/pessoas/:path*",
+    "/app/usuarios/:path*",
   ],
 };
