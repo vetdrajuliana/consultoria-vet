@@ -32,6 +32,25 @@ function nomeLote(lote) {
   return lote?.numeroLote ? `Lote ${lote.numeroLote}` : lote?.nome || "Lote";
 }
 
+function nomePiquete(piquete) {
+  return piquete?.nome || "Sem piquete";
+}
+
+function loteEstaNoPiquete(lote, piquete) {
+  if (!lote) {
+    return false;
+  }
+
+  if (!piquete) {
+    return !lote.piquete && !lote.piqueteId;
+  }
+
+  return (
+    String(lote.piqueteId || "") === String(piquete.id || "") ||
+    normalizarTexto(lote.piquete) === normalizarTexto(piquete.nome)
+  );
+}
+
 function animaisDoLote(lote, animais) {
   const identificadores = [lote?.numeroLote, lote?.nome]
     .filter(Boolean)
@@ -82,6 +101,7 @@ function gerarTratos(consumoMsLote, consumoMnLote, tratosPorDia) {
 
 export default function ConsumoLotePage() {
   const [lotes, setLotes] = useState([]);
+  const [piquetes, setPiquetes] = useState([]);
   const [animais, setAnimais] = useState([]);
   const [consumos, setConsumos] = useState([]);
   const [loteSelecionadoId, setLoteSelecionadoId] = useState(null);
@@ -95,8 +115,9 @@ export default function ConsumoLotePage() {
 
   useEffect(() => {
     const assinatura = liveQuery(async () => {
-      const [lotesDb, animaisDb, consumosDb] = await Promise.all([
+      const [lotesDb, piquetesDb, animaisDb, consumosDb] = await Promise.all([
         db.lotes.orderBy("createdAt").reverse().toArray(),
+        db.piquetes.orderBy("nome").toArray(),
         db.animais.orderBy("createdAt").reverse().toArray(),
         db.consumosLote.orderBy("data").reverse().toArray(),
       ]);
@@ -105,9 +126,11 @@ export default function ConsumoLotePage() {
         animais: animaisDb.filter((animal) => animal.status !== "deletado"),
         consumos: consumosDb,
         lotes: lotesDb.filter((lote) => lote.status !== "deletado"),
+        piquetes: piquetesDb.filter((piquete) => piquete.status !== "deletado"),
       };
-    }).subscribe(({ lotes, animais, consumos }) => {
+    }).subscribe(({ lotes, piquetes, animais, consumos }) => {
       setLotes(lotes);
+      setPiquetes(piquetes);
       setAnimais(animais);
       setConsumos(consumos);
       setLoteSelecionadoId((idAtual) => idAtual || lotes[0]?.id || null);
@@ -127,6 +150,35 @@ export default function ConsumoLotePage() {
     () => (loteSelecionado ? animaisDoLote(loteSelecionado, animais) : []),
     [animais, loteSelecionado],
   );
+
+  const piqueteSelecionado = useMemo(
+    () => piquetes.find((piquete) => loteEstaNoPiquete(loteSelecionado, piquete)),
+    [loteSelecionado, piquetes],
+  );
+
+  const piquetesComLotes = useMemo(() => {
+    const grupos = piquetes.map((piquete) => ({
+      id: `piquete-${piquete.id}`,
+      nome: nomePiquete(piquete),
+      piquete,
+      lotes: lotes.filter((lote) => loteEstaNoPiquete(lote, piquete)),
+    }));
+
+    const lotesSemPiquete = lotes.filter(
+      (lote) => !piquetes.some((piquete) => loteEstaNoPiquete(lote, piquete)),
+    );
+
+    if (lotesSemPiquete.length > 0) {
+      grupos.push({
+        id: "sem-piquete",
+        nome: "Sem piquete",
+        piquete: null,
+        lotes: lotesSemPiquete,
+      });
+    }
+
+    return grupos;
+  }, [lotes, piquetes]);
 
   const consumoCalculado = useMemo(
     () =>
@@ -184,6 +236,8 @@ export default function ConsumoLotePage() {
       data: form.data,
       loteId: loteSelecionado.id,
       loteNumero: loteSelecionado.numeroLote || loteSelecionado.nome || "",
+      piqueteId: piqueteSelecionado?.id || loteSelecionado.piqueteId || "",
+      piqueteNome: piqueteSelecionado?.nome || loteSelecionado.piquete || "",
       observacoes: form.observacoes,
       percentualMateriaSeca: Number(form.percentualMateriaSeca),
       percentualPesoVivo: Number(form.percentualPesoVivo),
@@ -224,46 +278,73 @@ export default function ConsumoLotePage() {
           <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
             <aside className="rounded-3xl border border-green-100 bg-white p-5 shadow-md">
               <h2 className="text-xl font-bold text-green-950">
-                Lotes cadastrados
+                Piquetes e lotes
               </h2>
               <p className="mt-1 text-sm text-gray-500">
-                Lotes com e sem animais aparecem aqui.
+                Escolha o piquete e depois o lote para lancar o consumo.
               </p>
 
-              <div className="mt-5 space-y-2">
+              <div className="mt-5 space-y-4">
                 {lotes.length === 0 ? (
                   <p className="rounded-2xl bg-green-50 p-4 text-sm text-green-900">
                     Nenhum lote cadastrado ainda.
                   </p>
                 ) : (
-                  lotes.map((lote) => {
-                    const animaisLote = animaisDoLote(lote, animais);
-                    const ativo = String(lote.id) === String(loteSelecionadoId);
-
-                    return (
-                      <button
-                        key={lote.id}
-                        type="button"
-                        onClick={() => setLoteSelecionadoId(lote.id)}
-                        className={`w-full rounded-2xl border px-4 py-3 text-left transition ${
-                          ativo
-                            ? "border-green-700 bg-green-900 text-white shadow-md"
-                            : "border-green-100 bg-[#f8faf6] text-green-950 hover:border-green-300"
-                        }`}
-                      >
-                        <span className="block font-bold">{nomeLote(lote)}</span>
-                        <span
-                          className={
-                            ativo ? "text-sm text-white/75" : "text-sm text-gray-500"
-                          }
-                        >
-                          {animaisLote.length > 0
-                            ? `${animaisLote.length} animais`
-                            : "Vazio"}
+                  piquetesComLotes.map((grupo) => (
+                    <div
+                      key={grupo.id}
+                      className="rounded-2xl border border-green-100 bg-[#f8faf6] p-3"
+                    >
+                      <div className="mb-3 flex items-center justify-between gap-3">
+                        <h3 className="font-bold text-green-950">{grupo.nome}</h3>
+                        <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-green-800">
+                          {grupo.lotes.length} lote{grupo.lotes.length === 1 ? "" : "s"}
                         </span>
-                      </button>
-                    );
-                  })
+                      </div>
+
+                      {grupo.lotes.length === 0 ? (
+                        <p className="rounded-xl bg-white p-3 text-sm text-gray-500">
+                          Nenhum lote neste piquete.
+                        </p>
+                      ) : (
+                        <div className="space-y-2">
+                          {grupo.lotes.map((lote) => {
+                            const animaisLote = animaisDoLote(lote, animais);
+                            const ativo =
+                              String(lote.id) === String(loteSelecionadoId);
+
+                            return (
+                              <button
+                                key={lote.id}
+                                type="button"
+                                onClick={() => setLoteSelecionadoId(lote.id)}
+                                className={`w-full rounded-xl border px-4 py-3 text-left transition ${
+                                  ativo
+                                    ? "border-green-700 bg-green-900 text-white shadow-md"
+                                    : "border-green-100 bg-white text-green-950 hover:border-green-300"
+                                }`}
+                              >
+                                <span className="block font-bold">
+                                  {nomeLote(lote)}
+                                </span>
+                                <span
+                                  className={
+                                    ativo
+                                      ? "text-sm text-white/75"
+                                      : "text-sm text-gray-500"
+                                  }
+                                >
+                                  {animaisLote.length > 0
+                                    ? `${animaisLote.length} animais`
+                                    : "Vazio"}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  ))
                 )}
               </div>
             </aside>
@@ -280,6 +361,12 @@ export default function ConsumoLotePage() {
                     </h2>
                     <p className="mt-2 text-gray-600">
                       {loteSelecionado?.fazenda || "Fazenda nao informada"}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-green-700">
+                      Piquete:{" "}
+                      {piqueteSelecionado?.nome ||
+                        loteSelecionado?.piquete ||
+                        "Nao informado"}
                     </p>
                   </div>
 
