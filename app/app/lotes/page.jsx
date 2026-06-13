@@ -1,12 +1,17 @@
 "use client";
 
+import { liveQuery } from "dexie";
 import { useEffect, useMemo, useState } from "react";
 import { db } from "../../../lib/fazendas-db";
 import AppHeader from "../AppHeader";
 
 const formLoteInicial = {
+  numeroLote: "",
   nome: "",
   fazenda: "",
+  dataCriacao: "",
+  finalidade: "",
+  piquete: "",
   observacoes: "",
 };
 
@@ -22,10 +27,13 @@ const formPiqueteInicial = {
 const inputClass =
   "border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700 bg-white";
 
+const finalidades = ["Entrada", "Saida", "Movimentacao", "Morte"];
+
 export default function LotesPiquetes() {
   const [fazendas, setFazendas] = useState([]);
   const [lotes, setLotes] = useState([]);
   const [piquetes, setPiquetes] = useState([]);
+  const [animais, setAnimais] = useState([]);
   const [mostrarFormularioLote, setMostrarFormularioLote] = useState(false);
   const [mostrarFormularioPiquete, setMostrarFormularioPiquete] =
     useState(false);
@@ -39,45 +47,70 @@ export default function LotesPiquetes() {
     return lotes.filter((lote) => lote.fazenda === formPiquete.fazenda);
   }, [formPiquete.fazenda, lotes]);
 
+  const piquetesDisponiveisParaLote = useMemo(() => {
+    if (!formLote.fazenda) return piquetes;
+    return piquetes.filter((piquete) => piquete.fazenda === formLote.fazenda);
+  }, [formLote.fazenda, piquetes]);
+
+  const quantidadeAnimaisPorLote = useMemo(() => {
+    return lotes.reduce((mapa, lote) => {
+      const identificadores = [lote.nome, lote.numeroLote].filter(Boolean);
+      const quantidade = animais.filter(
+        (animal) =>
+          animal.status !== "deletado" && identificadores.includes(animal.lote),
+      ).length;
+
+      mapa[lote.id] = quantidade;
+      return mapa;
+    }, {});
+  }, [animais, lotes]);
+
   async function carregarDados() {
-    const [fazendasLista, lotesLista, piquetesLista] = await Promise.all([
-      db.fazendas.orderBy("createdAt").reverse().toArray(),
-      db.lotes.orderBy("createdAt").reverse().toArray(),
-      db.piquetes.orderBy("createdAt").reverse().toArray(),
-    ]);
+    const [fazendasLista, lotesLista, piquetesLista, animaisLista] =
+      await Promise.all([
+        db.fazendas.orderBy("createdAt").reverse().toArray(),
+        db.lotes.orderBy("createdAt").reverse().toArray(),
+        db.piquetes.orderBy("createdAt").reverse().toArray(),
+        db.animais.orderBy("createdAt").reverse().toArray(),
+      ]);
 
     setFazendas(fazendasLista.filter((fazenda) => fazenda.status !== "deletado"));
     setLotes(lotesLista.filter((lote) => lote.status !== "deletado"));
     setPiquetes(
       piquetesLista.filter((piquete) => piquete.status !== "deletado"),
     );
+    setAnimais(animaisLista.filter((animal) => animal.status !== "deletado"));
   }
 
   useEffect(() => {
-    let componenteAtivo = true;
+    const assinatura = liveQuery(async () => {
+      const [fazendasLista, lotesLista, piquetesLista, animaisLista] =
+        await Promise.all([
+          db.fazendas.orderBy("createdAt").reverse().toArray(),
+          db.lotes.orderBy("createdAt").reverse().toArray(),
+          db.piquetes.orderBy("createdAt").reverse().toArray(),
+          db.animais.orderBy("createdAt").reverse().toArray(),
+        ]);
 
-    async function carregarListaInicial() {
-      const [fazendasLista, lotesLista, piquetesLista] = await Promise.all([
-        db.fazendas.orderBy("createdAt").reverse().toArray(),
-        db.lotes.orderBy("createdAt").reverse().toArray(),
-        db.piquetes.orderBy("createdAt").reverse().toArray(),
-      ]);
-
-      if (!componenteAtivo) return;
-
-      setFazendas(
-        fazendasLista.filter((fazenda) => fazenda.status !== "deletado"),
-      );
-      setLotes(lotesLista.filter((lote) => lote.status !== "deletado"));
-      setPiquetes(
-        piquetesLista.filter((piquete) => piquete.status !== "deletado"),
-      );
-    }
-
-    carregarListaInicial();
+      return {
+        fazendas: fazendasLista.filter(
+          (fazenda) => fazenda.status !== "deletado",
+        ),
+        lotes: lotesLista.filter((lote) => lote.status !== "deletado"),
+        piquetes: piquetesLista.filter(
+          (piquete) => piquete.status !== "deletado",
+        ),
+        animais: animaisLista.filter((animal) => animal.status !== "deletado"),
+      };
+    }).subscribe(({ fazendas, lotes, piquetes, animais }) => {
+      setFazendas(fazendas);
+      setLotes(lotes);
+      setPiquetes(piquetes);
+      setAnimais(animais);
+    });
 
     return () => {
-      componenteAtivo = false;
+      assinatura.unsubscribe();
     };
   }, []);
 
@@ -85,6 +118,7 @@ export default function LotesPiquetes() {
     setFormLote((formAtual) => ({
       ...formAtual,
       [campo]: valor,
+      ...(campo === "fazenda" ? { piquete: "" } : {}),
     }));
   }
 
@@ -157,8 +191,12 @@ export default function LotesPiquetes() {
   function editarLote(lote) {
     setLoteEditando(lote);
     setFormLote({
+      numeroLote: lote.numeroLote || "",
       nome: lote.nome || "",
       fazenda: lote.fazenda || "",
+      dataCriacao: lote.dataCriacao || "",
+      finalidade: lote.finalidade || "",
+      piquete: lote.piquete || "",
       observacoes: lote.observacoes || "",
     });
     setMostrarFormularioLote(true);
@@ -253,6 +291,16 @@ export default function LotesPiquetes() {
               <div className="grid gap-6 md:grid-cols-2">
                 <input
                   type="text"
+                  placeholder="Numero do lote"
+                  value={formLote.numeroLote}
+                  onChange={(e) =>
+                    atualizarLote("numeroLote", e.target.value)
+                  }
+                  className={inputClass}
+                />
+
+                <input
+                  type="text"
                   placeholder="Nome do lote"
                   value={formLote.nome}
                   onChange={(e) => atualizarLote("nome", e.target.value)}
@@ -271,6 +319,47 @@ export default function LotesPiquetes() {
                   {fazendas.map((fazenda) => (
                     <option key={fazenda.id} value={fazenda.nome}>
                       {fazenda.nome}
+                    </option>
+                  ))}
+                </select>
+
+                <input
+                  type="date"
+                  value={formLote.dataCriacao}
+                  onChange={(e) =>
+                    atualizarLote("dataCriacao", e.target.value)
+                  }
+                  className={inputClass}
+                />
+
+                <select
+                  value={formLote.finalidade}
+                  onChange={(e) => atualizarLote("finalidade", e.target.value)}
+                  className={inputClass}
+                >
+                  <option value="" disabled hidden>
+                    Finalidade
+                  </option>
+
+                  {finalidades.map((finalidade) => (
+                    <option key={finalidade} value={finalidade}>
+                      {finalidade}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={formLote.piquete}
+                  onChange={(e) => atualizarLote("piquete", e.target.value)}
+                  className={inputClass}
+                >
+                  <option value="" disabled hidden>
+                    Piquete atual
+                  </option>
+
+                  {piquetesDisponiveisParaLote.map((piquete) => (
+                    <option key={piquete.id} value={piquete.nome}>
+                      {piquete.nome}
                     </option>
                   ))}
                 </select>
@@ -414,46 +503,78 @@ export default function LotesPiquetes() {
                 <p className="text-gray-600">Nenhum lote cadastrado ainda.</p>
               ) : (
                 <div className="grid gap-5">
-                  {lotes.map((lote) => (
-                    <article
-                      key={lote.id}
-                      className="rounded-3xl border border-green-100 bg-[#f8faf6] p-6"
-                    >
-                      <h3 className="text-xl font-bold text-green-900">
-                        {lote.nome}
-                      </h3>
+                  {lotes.map((lote) => {
+                    const quantidadeAnimais =
+                      quantidadeAnimaisPorLote[lote.id] || 0;
 
-                      <p className="mt-2 text-gray-600">
-                        Fazenda: {lote.fazenda || "Nao informada"}
-                      </p>
+                    return (
+                      <article
+                        key={lote.id}
+                        className="rounded-3xl border border-green-100 bg-[#f8faf6] p-6"
+                      >
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                          <div>
+                            <p className="text-sm font-semibold uppercase tracking-wide text-green-700">
+                              Lote {lote.numeroLote || "sem numero"}
+                            </p>
 
-                      {lote.observacoes && (
-                        <p className="mt-1 text-gray-600">
-                          Observacoes: {lote.observacoes}
+                            <h3 className="mt-1 text-xl font-bold text-green-900">
+                              {lote.nome}
+                            </h3>
+                          </div>
+
+                          <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-green-900 shadow-sm">
+                            {quantidadeAnimais > 0
+                              ? `${quantidadeAnimais} animais`
+                              : "Vazio"}
+                          </span>
+                        </div>
+
+                        <p className="mt-4 text-gray-600">
+                          Fazenda: {lote.fazenda || "Nao informada"}
                         </p>
-                      )}
 
-                      <p className="mt-4 inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-800">
-                        {lote.status || "ativo"}
-                      </p>
+                        <p className="mt-1 text-gray-600">
+                          Data de criacao:{" "}
+                          {lote.dataCriacao || "Nao informada"}
+                        </p>
 
-                      <div className="mt-6 flex gap-3">
-                        <button
-                          onClick={() => editarLote(lote)}
-                          className="rounded-xl bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-800 transition-all hover:bg-blue-200"
-                        >
-                          Editar
-                        </button>
+                        <p className="mt-1 text-gray-600">
+                          Finalidade: {lote.finalidade || "Nao informada"}
+                        </p>
 
-                        <button
-                          onClick={() => excluirLote(lote.id)}
-                          className="rounded-xl bg-red-100 px-4 py-2 text-sm font-semibold text-red-800 transition-all hover:bg-red-200"
-                        >
-                          Excluir
-                        </button>
-                      </div>
-                    </article>
-                  ))}
+                        <p className="mt-1 text-gray-600">
+                          Piquete atual: {lote.piquete || "Sem piquete"}
+                        </p>
+
+                        {lote.observacoes && (
+                          <p className="mt-1 text-gray-600">
+                            Observacoes: {lote.observacoes}
+                          </p>
+                        )}
+
+                        <p className="mt-4 inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-800">
+                          {lote.status || "ativo"}
+                        </p>
+
+                        <div className="mt-6 flex gap-3">
+                          <button
+                            onClick={() => editarLote(lote)}
+                            className="rounded-xl bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-800 transition-all hover:bg-blue-200"
+                          >
+                            Editar
+                          </button>
+
+                          <button
+                            onClick={() => excluirLote(lote.id)}
+                            className="rounded-xl bg-red-100 px-4 py-2 text-sm font-semibold text-red-800 transition-all hover:bg-red-200"
+                          >
+                            Excluir
+                          </button>
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
               )}
             </section>

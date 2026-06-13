@@ -43,13 +43,13 @@ const fazendasCadastradas = [
   "Fazenda São José",
 ];
 
-const lotesCadastrados = [
+const lotesPadrao = [
   "Lote Recria",
   "Lote Engorda",
   "Matrizes",
 ];
 
-const piquetesCadastrados = [
+const piquetesPadrao = [
   "Piquete 01",
   "Piquete 02",
 ];
@@ -58,6 +58,9 @@ export default function Animais() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [animais, setAnimais] = useState([]);
   const [animalEditando, setAnimalEditando] = useState(null);
+  const [lotesCadastrados, setLotesCadastrados] = useState(lotesPadrao);
+  const [piquetesCadastrados, setPiquetesCadastrados] =
+    useState(piquetesPadrao);
 
 
    const [form, setForm] = useState({
@@ -86,10 +89,28 @@ piquete: "",
     let componenteAtivo = true;
 
     async function carregarListaInicial() {
-      const lista = await db.animais.orderBy("createdAt").reverse().toArray();
+      const [animaisLista, lotesLista, piquetesLista] = await Promise.all([
+        db.animais.orderBy("createdAt").reverse().toArray(),
+        db.lotes.orderBy("createdAt").reverse().toArray(),
+        db.piquetes.orderBy("createdAt").reverse().toArray(),
+      ]);
 
       if (componenteAtivo) {
-        setAnimais(lista.filter((animal) => animal.status !== "deletado"));
+        setAnimais(
+          animaisLista.filter((animal) => animal.status !== "deletado")
+        );
+
+        const lotesAtivos = lotesLista
+          .filter((lote) => lote.status !== "deletado" && lote.nome)
+          .map((lote) => lote.nome);
+        const piquetesAtivos = piquetesLista
+          .filter((piquete) => piquete.status !== "deletado" && piquete.nome)
+          .map((piquete) => piquete.nome);
+
+        setLotesCadastrados(lotesAtivos.length ? lotesAtivos : lotesPadrao);
+        setPiquetesCadastrados(
+          piquetesAtivos.length ? piquetesAtivos : piquetesPadrao
+        );
       }
     }
 
@@ -155,6 +176,7 @@ function atualizarIdade(valor) {
     fazenda: "",
     fazendaOrigem: "",
     lote: "",
+    piquete: "",
     observacoes: "",
   });
   }
@@ -195,9 +217,12 @@ function atualizarIdade(valor) {
       categoria: animal.categoria || "",
       dataEntrada: animal.dataEntrada || "",
       idadeMeses: animal.idadeMeses || "",
+      idade: animal.idade || "",
       peso: animal.peso || "",
       fazenda: animal.fazenda || "",
+      fazendaOrigem: animal.fazendaOrigem || "",
       lote: animal.lote || "",
+      piquete: animal.piquete || "",
       observacoes: animal.observacoes || "",
     });
 
