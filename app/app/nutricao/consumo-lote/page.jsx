@@ -89,13 +89,46 @@ function calcularConsumo(animais, percentualPesoVivo, percentualMateriaSeca) {
   };
 }
 
-function gerarTratos(consumoMsLote, consumoMnLote, tratosPorDia) {
+function percentuaisPadrao(quantidadeTratos) {
+  const padroes = {
+    1: ["100"],
+    2: ["50", "50"],
+    3: ["33.34", "33.33", "33.33"],
+    4: ["20", "30", "20", "30"],
+  };
+
+  return padroes[Number(quantidadeTratos)] || padroes[1];
+}
+
+function ajustarLista(lista, quantidadeTratos, fallback = "") {
+  const quantidade = Number(quantidadeTratos) || 1;
+  const novaLista = lista.slice(0, quantidade);
+
+  while (novaLista.length < quantidade) {
+    novaLista.push(fallback);
+  }
+
+  return novaLista;
+}
+
+function gerarTratos(
+  consumoMsLote,
+  consumoMnLote,
+  percentualMateriaSeca,
+  tratosPorDia,
+  tratoPercentuais,
+  tratoFornecidoMn,
+) {
   const quantidadeTratos = Number(tratosPorDia) || 1;
+  const fracaoMateriaSeca = Number(percentualMateriaSeca) / 100 || 0;
 
   return Array.from({ length: quantidadeTratos }, (_, indice) => ({
     numero: indice + 1,
-    consumoMn: consumoMnLote / quantidadeTratos,
-    consumoMs: consumoMsLote / quantidadeTratos,
+    percentualPrevisto: Number(tratoPercentuais[indice]) || 0,
+    previstoMn: consumoMnLote * ((Number(tratoPercentuais[indice]) || 0) / 100),
+    previstoMs: consumoMsLote * ((Number(tratoPercentuais[indice]) || 0) / 100),
+    fornecidoMn: Number(tratoFornecidoMn[indice]) || 0,
+    fornecidoMs: (Number(tratoFornecidoMn[indice]) || 0) * fracaoMateriaSeca,
   }));
 }
 
@@ -105,6 +138,8 @@ export default function ConsumoLotePage() {
   const [animais, setAnimais] = useState([]);
   const [consumos, setConsumos] = useState([]);
   const [loteSelecionadoId, setLoteSelecionadoId] = useState(null);
+  const [tratoFornecidoMn, setTratoFornecidoMn] = useState([""]);
+  const [tratoPercentuais, setTratoPercentuais] = useState(percentuaisPadrao(1));
   const [form, setForm] = useState({
     data: hojeISO(),
     percentualMateriaSeca: "50",
@@ -203,9 +238,40 @@ export default function ConsumoLotePage() {
       gerarTratos(
         consumoCalculado.consumoMsLote,
         consumoCalculado.consumoMnLote,
+        form.percentualMateriaSeca,
         form.tratosPorDia,
+        tratoPercentuais,
+        tratoFornecidoMn,
       ),
-    [consumoCalculado.consumoMnLote, consumoCalculado.consumoMsLote, form.tratosPorDia],
+    [
+      consumoCalculado.consumoMnLote,
+      consumoCalculado.consumoMsLote,
+      form.percentualMateriaSeca,
+      form.tratosPorDia,
+      tratoFornecidoMn,
+      tratoPercentuais,
+    ],
+  );
+
+  const totalPercentualPrevisto = useMemo(
+    () =>
+      tratoPercentuais.reduce(
+        (total, percentual) => total + (Number(percentual) || 0),
+        0,
+      ),
+    [tratoPercentuais],
+  );
+
+  const totalFornecidoMn = useMemo(
+    () =>
+      tratosDoDia.reduce((total, trato) => total + (Number(trato.fornecidoMn) || 0), 0),
+    [tratosDoDia],
+  );
+
+  const totalFornecidoMs = useMemo(
+    () =>
+      tratosDoDia.reduce((total, trato) => total + (Number(trato.fornecidoMs) || 0), 0),
+    [tratosDoDia],
   );
 
   function atualizarCampo(campo, valor) {
@@ -213,6 +279,31 @@ export default function ConsumoLotePage() {
       ...formAtual,
       [campo]: valor,
     }));
+  }
+
+  function selecionarTratosPorDia(quantidade) {
+    setForm((formAtual) => ({
+      ...formAtual,
+      tratosPorDia: String(quantidade),
+    }));
+    setTratoPercentuais(percentuaisPadrao(quantidade));
+    setTratoFornecidoMn((valoresAtuais) => ajustarLista(valoresAtuais, quantidade));
+  }
+
+  function atualizarPercentualTrato(indice, valor) {
+    setTratoPercentuais((valoresAtuais) => {
+      const valores = ajustarLista(valoresAtuais, form.tratosPorDia, "0");
+      valores[indice] = valor;
+      return valores;
+    });
+  }
+
+  function atualizarFornecidoTrato(indice, valor) {
+    setTratoFornecidoMn((valoresAtuais) => {
+      const valores = ajustarLista(valoresAtuais, form.tratosPorDia);
+      valores[indice] = valor;
+      return valores;
+    });
   }
 
   async function salvarConsumo() {
@@ -244,6 +335,9 @@ export default function ConsumoLotePage() {
       quantidadeAnimais: animaisSelecionados.length,
       tratos: tratosDoDia,
       tratosPorDia: Number(form.tratosPorDia),
+      totalFornecidoMn,
+      totalFornecidoMs,
+      totalPercentualPrevisto,
       createdAt: new Date().toISOString(),
     });
 
@@ -252,6 +346,9 @@ export default function ConsumoLotePage() {
       data: hojeISO(),
       observacoes: "",
     }));
+    setTratoFornecidoMn((valoresAtuais) =>
+      valoresAtuais.map(() => ""),
+    );
   }
 
   return (
@@ -480,9 +577,7 @@ export default function ConsumoLotePage() {
                             <button
                               key={quantidade}
                               type="button"
-                              onClick={() =>
-                                atualizarCampo("tratosPorDia", String(quantidade))
-                              }
+                              onClick={() => selecionarTratosPorDia(quantidade)}
                               className={`rounded-2xl border p-4 text-center font-bold transition ${
                                 ativo
                                   ? "border-green-700 bg-green-900 text-white shadow-md"
@@ -534,8 +629,13 @@ export default function ConsumoLotePage() {
 
                   <div className="mt-6">
                     <h3 className="text-lg font-bold text-green-950">
-                      Divisao dos tratos
+                      Lancamento dos tratos
                     </h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Ajuste o percentual previsto de cada trato e informe quanto foi
+                      fornecido em kg de materia natural.
+                    </p>
+
                     <div className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
                       {tratosDoDia.map((trato) => (
                         <div
@@ -545,15 +645,100 @@ export default function ConsumoLotePage() {
                           <p className="text-sm font-semibold text-green-700">
                             Trato {trato.numero}
                           </p>
-                          <p className="mt-2 font-bold text-green-950">
-                            {numero(trato.consumoMn)} kg MN
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            {numero(trato.consumoMs)} kg MS
+                          <label className="mt-3 block">
+                            <span className="mb-1 block text-xs font-semibold text-gray-500">
+                              % previsto
+                            </span>
+                            <input
+                              type="number"
+                              min="0"
+                              max="100"
+                              step="0.01"
+                              value={tratoPercentuais[trato.numero - 1] || ""}
+                              onChange={(event) =>
+                                atualizarPercentualTrato(
+                                  trato.numero - 1,
+                                  event.target.value,
+                                )
+                              }
+                              className="w-full rounded-xl border border-gray-200 bg-white p-3 outline-none focus:border-green-700"
+                            />
+                          </label>
+
+                          <div className="mt-3 rounded-xl bg-white p-3">
+                            <p className="text-xs font-semibold text-gray-500">
+                              Previsto
+                            </p>
+                            <p className="mt-1 font-bold text-green-950">
+                              {numero(trato.previstoMn)} kg MN
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              {numero(trato.previstoMs)} kg MS
+                            </p>
+                          </div>
+
+                          <label className="mt-3 block">
+                            <span className="mb-1 block text-xs font-semibold text-gray-500">
+                              Fornecido (kg MN)
+                            </span>
+                            <input
+                              type="number"
+                              min="0"
+                              step="0.01"
+                              value={tratoFornecidoMn[trato.numero - 1] || ""}
+                              onChange={(event) =>
+                                atualizarFornecidoTrato(
+                                  trato.numero - 1,
+                                  event.target.value,
+                                )
+                              }
+                              className="w-full rounded-xl border border-gray-200 bg-white p-3 outline-none focus:border-green-700"
+                              placeholder="0"
+                            />
+                          </label>
+
+                          <p className="mt-2 text-sm text-gray-600">
+                            Fornecido em MS: {numero(trato.fornecidoMs)} kg
                           </p>
                         </div>
                       ))}
                     </div>
+
+                    <div className="mt-4 grid gap-3 md:grid-cols-3">
+                      <div className="rounded-2xl bg-green-50 p-4">
+                        <p className="text-sm font-semibold text-green-700">
+                          Percentual previsto
+                        </p>
+                        <p className="mt-1 text-2xl font-bold text-green-950">
+                          {numero(totalPercentualPrevisto)}%
+                        </p>
+                      </div>
+
+                      <div className="rounded-2xl bg-green-50 p-4">
+                        <p className="text-sm font-semibold text-green-700">
+                          Total fornecido MN
+                        </p>
+                        <p className="mt-1 text-2xl font-bold text-green-950">
+                          {numero(totalFornecidoMn)} kg
+                        </p>
+                      </div>
+
+                      <div className="rounded-2xl bg-green-50 p-4">
+                        <p className="text-sm font-semibold text-green-700">
+                          Total fornecido MS
+                        </p>
+                        <p className="mt-1 text-2xl font-bold text-green-950">
+                          {numero(totalFornecidoMs)} kg
+                        </p>
+                      </div>
+                    </div>
+
+                    {Math.abs(totalPercentualPrevisto - 100) > 0.01 && (
+                      <p className="mt-4 rounded-2xl bg-yellow-50 p-4 text-sm font-semibold text-yellow-800">
+                        A soma dos percentuais previstos esta em{" "}
+                        {numero(totalPercentualPrevisto)}%. O ideal e fechar em 100%.
+                      </p>
+                    )}
                   </div>
 
                   {animaisSelecionados.length > consumoCalculado.quantidadeComPeso && (
@@ -605,6 +790,9 @@ export default function ConsumoLotePage() {
                           </p>
                           <p className="text-sm text-gray-600">
                             Tratos: {consumo.tratosPorDia || 1} por dia
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Fornecido: {numero(consumo.totalFornecidoMn || 0)} kg MN
                           </p>
                         </div>
                       ))}
