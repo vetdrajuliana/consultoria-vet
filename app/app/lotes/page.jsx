@@ -43,7 +43,9 @@ export default function LotesPiquetes() {
 
   const lotesDisponiveis = useMemo(() => {
     if (!formPiquete.fazenda) return lotes;
-    return lotes.filter((lote) => lote.fazenda === formPiquete.fazenda);
+    return lotes.filter(
+      (lote) => !lote.fazenda || lote.fazenda === formPiquete.fazenda,
+    );
   }, [formPiquete.fazenda, lotes]);
 
   const piquetesDisponiveisParaLote = useMemo(() => {
@@ -445,14 +447,21 @@ export default function LotesPiquetes() {
                     Lote
                   </option>
 
-                  {lotesDisponiveis.map((lote) => (
-                    <option
-                      key={lote.id}
-                      value={lote.numeroLote || lote.nome || ""}
-                    >
-                      Lote {lote.numeroLote || lote.nome}
+                  {lotesDisponiveis.length === 0 ? (
+                    <option value="" disabled>
+                      Nenhum lote cadastrado
                     </option>
-                  ))}
+                  ) : (
+                    lotesDisponiveis.map((lote) => (
+                      <option
+                        key={lote.id}
+                        value={lote.numeroLote || lote.nome || ""}
+                      >
+                        Lote {lote.numeroLote || lote.nome}
+                        {lote.fazenda ? ` - ${lote.fazenda}` : ""}
+                      </option>
+                    ))
+                  )}
                 </select>
 
                 <input
