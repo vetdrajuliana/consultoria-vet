@@ -70,6 +70,16 @@ function calcularConsumo(animais, percentualPesoVivo, percentualMateriaSeca) {
   };
 }
 
+function gerarTratos(consumoMsLote, consumoMnLote, tratosPorDia) {
+  const quantidadeTratos = Number(tratosPorDia) || 1;
+
+  return Array.from({ length: quantidadeTratos }, (_, indice) => ({
+    numero: indice + 1,
+    consumoMn: consumoMnLote / quantidadeTratos,
+    consumoMs: consumoMsLote / quantidadeTratos,
+  }));
+}
+
 export default function ConsumoLotePage() {
   const [lotes, setLotes] = useState([]);
   const [animais, setAnimais] = useState([]);
@@ -79,6 +89,7 @@ export default function ConsumoLotePage() {
     data: hojeISO(),
     percentualMateriaSeca: "50",
     percentualPesoVivo: "2.5",
+    tratosPorDia: "1",
     observacoes: "",
   });
 
@@ -135,6 +146,16 @@ export default function ConsumoLotePage() {
     [consumos, loteSelecionadoId],
   );
 
+  const tratosDoDia = useMemo(
+    () =>
+      gerarTratos(
+        consumoCalculado.consumoMsLote,
+        consumoCalculado.consumoMnLote,
+        form.tratosPorDia,
+      ),
+    [consumoCalculado.consumoMnLote, consumoCalculado.consumoMsLote, form.tratosPorDia],
+  );
+
   function atualizarCampo(campo, valor) {
     setForm((formAtual) => ({
       ...formAtual,
@@ -167,6 +188,8 @@ export default function ConsumoLotePage() {
       percentualMateriaSeca: Number(form.percentualMateriaSeca),
       percentualPesoVivo: Number(form.percentualPesoVivo),
       quantidadeAnimais: animaisSelecionados.length,
+      tratos: tratosDoDia,
+      tratosPorDia: Number(form.tratosPorDia),
       createdAt: new Date().toISOString(),
     });
 
@@ -192,6 +215,10 @@ export default function ConsumoLotePage() {
             >
               Consumo por lote
             </h1>
+            <p className="mt-3 max-w-3xl text-gray-600">
+              Lance o consumo diario do lote e escolha quantos tratos serao
+              fornecidos no dia.
+            </p>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
@@ -305,7 +332,7 @@ export default function ConsumoLotePage() {
               <div className="grid gap-6 xl:grid-cols-[1fr_360px]">
                 <div className="rounded-3xl border border-green-100 bg-white p-6 shadow-md">
                   <h2 className="text-2xl font-bold text-green-950">
-                    Parametros de consumo
+                    Lancamento diario
                   </h2>
 
                   <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -354,6 +381,34 @@ export default function ConsumoLotePage() {
                       />
                     </label>
 
+                    <div>
+                      <span className="mb-2 block text-sm font-semibold text-gray-600">
+                        Tratos por dia
+                      </span>
+                      <div className="grid grid-cols-4 gap-2">
+                        {[1, 2, 3, 4].map((quantidade) => {
+                          const ativo = String(form.tratosPorDia) === String(quantidade);
+
+                          return (
+                            <button
+                              key={quantidade}
+                              type="button"
+                              onClick={() =>
+                                atualizarCampo("tratosPorDia", String(quantidade))
+                              }
+                              className={`rounded-2xl border p-4 text-center font-bold transition ${
+                                ativo
+                                  ? "border-green-700 bg-green-900 text-white shadow-md"
+                                  : "border-gray-200 bg-white text-green-950 hover:border-green-300"
+                              }`}
+                            >
+                              {quantidade}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
                     <label>
                       <span className="mb-2 block text-sm font-semibold text-gray-600">
                         Observacoes
@@ -390,6 +445,30 @@ export default function ConsumoLotePage() {
                     </div>
                   </div>
 
+                  <div className="mt-6">
+                    <h3 className="text-lg font-bold text-green-950">
+                      Divisao dos tratos
+                    </h3>
+                    <div className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                      {tratosDoDia.map((trato) => (
+                        <div
+                          key={trato.numero}
+                          className="rounded-2xl border border-green-100 bg-[#f8faf6] p-4"
+                        >
+                          <p className="text-sm font-semibold text-green-700">
+                            Trato {trato.numero}
+                          </p>
+                          <p className="mt-2 font-bold text-green-950">
+                            {numero(trato.consumoMn)} kg MN
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            {numero(trato.consumoMs)} kg MS
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   {animaisSelecionados.length > consumoCalculado.quantidadeComPeso && (
                     <p className="mt-4 rounded-2xl bg-yellow-50 p-4 text-sm font-semibold text-yellow-800">
                       Existem animais sem peso informado neste lote. Eles aparecem na
@@ -403,7 +482,7 @@ export default function ConsumoLotePage() {
                     disabled={!loteSelecionado || animaisSelecionados.length === 0}
                     className="mt-6 rounded-2xl bg-green-700 px-6 py-3 font-bold text-white shadow-md transition hover:bg-green-800 disabled:cursor-not-allowed disabled:bg-gray-300"
                   >
-                    Salvar consumo do lote
+                    Salvar consumo diario
                   </button>
                 </div>
 
@@ -436,6 +515,9 @@ export default function ConsumoLotePage() {
                           </p>
                           <p className="text-sm text-gray-600">
                             %PV: {numero(consumo.percentualPesoVivo)}%
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Tratos: {consumo.tratosPorDia || 1} por dia
                           </p>
                         </div>
                       ))}
