@@ -217,24 +217,26 @@ export default function LotesPiquetes() {
 
   async function excluirLote(id) {
     const confirmar = confirm("Deseja excluir este lote?");
-    if (!confirmar) return;
+    if (!confirmar) return false;
 
     await db.lotes.update(id, {
       status: "deletado",
     });
 
     carregarDados();
+    return true;
   }
 
   async function excluirPiquete(id) {
     const confirmar = confirm("Deseja excluir este piquete?");
-    if (!confirmar) return;
+    if (!confirmar) return false;
 
     await db.piquetes.update(id, {
       status: "deletado",
     });
 
     carregarDados();
+    return true;
   }
 
   return (
@@ -372,6 +374,23 @@ export default function LotesPiquetes() {
                   {loteEditando ? "Salvar Alteracoes" : "Salvar Lote"}
                 </button>
 
+                {loteEditando && (
+                  <button
+                    onClick={async () => {
+                      const excluido = await excluirLote(loteEditando.id);
+
+                      if (excluido) {
+                        setMostrarFormularioLote(false);
+                        setLoteEditando(null);
+                        limparFormularioLote();
+                      }
+                    }}
+                    className="rounded-2xl bg-red-100 px-6 py-3 font-semibold text-red-800 hover:bg-red-200"
+                  >
+                    Excluir Lote
+                  </button>
+                )}
+
                 <button
                   onClick={() => {
                     setMostrarFormularioLote(false);
@@ -473,6 +492,23 @@ export default function LotesPiquetes() {
                 >
                   {piqueteEditando ? "Salvar Alteracoes" : "Salvar Piquete"}
                 </button>
+
+                {piqueteEditando && (
+                  <button
+                    onClick={async () => {
+                      const excluido = await excluirPiquete(piqueteEditando.id);
+
+                      if (excluido) {
+                        setMostrarFormularioPiquete(false);
+                        setPiqueteEditando(null);
+                        limparFormularioPiquete();
+                      }
+                    }}
+                    className="rounded-2xl bg-red-100 px-6 py-3 font-semibold text-red-800 hover:bg-red-200"
+                  >
+                    Excluir Piquete
+                  </button>
+                )}
 
                 <button
                   onClick={() => {

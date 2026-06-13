@@ -220,13 +220,14 @@ export default function Fazendas() {
 
   async function excluirFazenda(id) {
     const confirmar = confirm("Deseja excluir esta fazenda?");
-    if (!confirmar) return;
+    if (!confirmar) return false;
 
     await db.fazendas.update(id, {
       status: "deletado",
     });
 
     carregarFazendas();
+    return true;
   }
 
   return (
@@ -379,6 +380,23 @@ export default function Fazendas() {
               >
                 {fazendaEditando ? "Salvar Alterações" : "Salvar Fazenda"}
               </button>
+
+              {fazendaEditando && (
+                <button
+                  onClick={async () => {
+                    const excluida = await excluirFazenda(fazendaEditando.id);
+
+                    if (excluida) {
+                      setMostrarFormulario(false);
+                      setFazendaEditando(null);
+                      limparFormulario();
+                    }
+                  }}
+                  className="bg-red-100 hover:bg-red-200 text-red-800 px-6 py-3 rounded-2xl font-semibold"
+                >
+                  Excluir Fazenda
+                </button>
+              )}
 
               <button
                 onClick={() => {
