@@ -183,7 +183,9 @@ export default function Insumos() {
   }
 
   async function excluirInsumo(id) {
-    const confirmar = confirm("Deseja excluir este insumo?");
+    const confirmar = confirm(
+      "Tem certeza que deseja remover? Os dados serão perdidos.",
+    );
     if (!confirmar) return;
 
     await db.insumos.update(id, {

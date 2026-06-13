@@ -218,7 +218,9 @@ export default function LotesPiquetes() {
   }
 
   async function excluirLote(id) {
-    const confirmar = confirm("Deseja excluir este lote?");
+    const confirmar = confirm(
+      "Tem certeza que deseja remover? Os dados serão perdidos.",
+    );
     if (!confirmar) return false;
 
     await db.lotes.update(id, {
@@ -230,7 +232,9 @@ export default function LotesPiquetes() {
   }
 
   async function excluirPiquete(id) {
-    const confirmar = confirm("Deseja excluir este piquete?");
+    const confirmar = confirm(
+      "Tem certeza que deseja remover? Os dados serão perdidos.",
+    );
     if (!confirmar) return false;
 
     await db.piquetes.update(id, {

@@ -133,7 +133,9 @@ export default function Usuarios() {
   }
 
   async function excluirPessoa(id) {
-    const confirmar = confirm("Deseja excluir este usuário?");
+    const confirmar = confirm(
+      "Tem certeza que deseja remover? Os dados serão perdidos.",
+    );
     if (!confirmar) return;
 
     await db.pessoas.update(id, {

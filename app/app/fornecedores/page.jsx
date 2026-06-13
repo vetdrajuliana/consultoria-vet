@@ -112,7 +112,9 @@ export default function Fornecedores() {
   }
 
   async function excluirFornecedor(id) {
-    const confirmar = confirm("Deseja excluir este fornecedor?");
+    const confirmar = confirm(
+      "Tem certeza que deseja remover? Os dados serão perdidos.",
+    );
     if (!confirmar) return;
 
     await db.fornecedores.update(id, {

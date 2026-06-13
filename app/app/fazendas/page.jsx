@@ -219,7 +219,9 @@ export default function Fazendas() {
   }
 
   async function excluirFazenda(id) {
-    const confirmar = confirm("Deseja excluir esta fazenda?");
+    const confirmar = confirm(
+      "Tem certeza que deseja remover? Os dados serão perdidos.",
+    );
     if (!confirmar) return false;
 
     await db.fazendas.update(id, {

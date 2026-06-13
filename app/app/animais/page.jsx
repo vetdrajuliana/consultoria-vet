@@ -233,7 +233,9 @@ function atualizarIdade(valor) {
   }
 
   async function excluirAnimal(id) {
-    const confirmar = confirm("Deseja excluir este animal?");
+    const confirmar = confirm(
+      "Tem certeza que deseja remover? Os dados serão perdidos.",
+    );
     if (!confirmar) return;
 
     await db.animais.update(id, {
