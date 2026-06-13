@@ -4,10 +4,15 @@ import { useEffect, useState } from "react";
 import { db } from "../../../lib/fazendas-db";
 import AppHeader from "../AppHeader";
 
+const IBGE_API = "https://servicodados.ibge.gov.br/api/v1/localidades";
+
 export default function Fazendas() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [fazendas, setFazendas] = useState([]);
   const [fazendaEditando, setFazendaEditando] = useState(null);
+  const [estados, setEstados] = useState([]);
+  const [cidades, setCidades] = useState([]);
+  const [carregandoCidades, setCarregandoCidades] = useState(false);
 
   const [form, setForm] = useState({
     nome: "",
@@ -25,6 +30,16 @@ export default function Fazendas() {
     const lista = await db.fazendas.orderBy("createdAt").reverse().toArray();
     setFazendas(lista.filter((fazenda) => fazenda.status !== "deletado"));
   }
+
+  const estadoSelecionado = estados.find((estado) => {
+    const valor = form.estado.trim().toLowerCase();
+
+    return (
+      valor === estado.sigla.toLowerCase() ||
+      valor === estado.nome.toLowerCase() ||
+      valor === `${estado.sigla} - ${estado.nome}`.toLowerCase()
+    );
+  });
 
   useEffect(() => {
     let componenteAtivo = true;
@@ -44,10 +59,82 @@ export default function Fazendas() {
     };
   }, []);
 
+  useEffect(() => {
+    let componenteAtivo = true;
+
+    async function carregarEstados() {
+      const resposta = await fetch(`${IBGE_API}/estados?orderBy=nome`);
+      const lista = await resposta.json();
+
+      if (componenteAtivo) {
+        setEstados(lista);
+      }
+    }
+
+    carregarEstados().catch(() => {
+      if (componenteAtivo) {
+        setEstados([]);
+      }
+    });
+
+    return () => {
+      componenteAtivo = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let componenteAtivo = true;
+
+    async function carregarCidades() {
+      await Promise.resolve();
+
+      if (!estadoSelecionado) {
+        if (componenteAtivo) {
+          setCidades([]);
+          setCarregandoCidades(false);
+        }
+        return;
+      }
+
+      if (componenteAtivo) {
+        setCarregandoCidades(true);
+      }
+
+      const resposta = await fetch(
+        `${IBGE_API}/estados/${estadoSelecionado.sigla}/municipios?orderBy=nome`,
+      );
+      const lista = await resposta.json();
+
+      if (componenteAtivo) {
+        setCidades(lista);
+        setCarregandoCidades(false);
+      }
+    }
+
+    carregarCidades().catch(() => {
+      if (componenteAtivo) {
+        setCidades([]);
+        setCarregandoCidades(false);
+      }
+    });
+
+    return () => {
+      componenteAtivo = false;
+    };
+  }, [estadoSelecionado]);
+
   function atualizarCampo(campo, valor) {
     setForm((formAtual) => ({
       ...formAtual,
       [campo]: valor,
+    }));
+  }
+
+  function atualizarEstado(valor) {
+    setForm((formAtual) => ({
+      ...formAtual,
+      estado: valor,
+      cidade: "",
     }));
   }
 
@@ -71,15 +158,38 @@ export default function Fazendas() {
       return;
     }
 
+    if (form.estado && !estadoSelecionado) {
+      alert("Selecione um estado valido da lista.");
+      return;
+    }
+
+    if (
+      estadoSelecionado &&
+      form.cidade &&
+      cidades.length > 0 &&
+      !cidades.some(
+        (cidade) =>
+          cidade.nome.toLowerCase() === form.cidade.trim().toLowerCase(),
+      )
+    ) {
+      alert("Selecione uma cidade valida para o estado informado.");
+      return;
+    }
+
+    const dadosFazenda = {
+      ...form,
+      estado: estadoSelecionado?.sigla || form.estado,
+    };
+
     if (fazendaEditando) {
       await db.fazendas.update(fazendaEditando.id, {
-        ...form,
+        ...dadosFazenda,
         status: fazendaEditando.status || "ativa",
       });
       setFazendaEditando(null);
     } else {
       await db.fazendas.add({
-        ...form,
+        ...dadosFazenda,
         status: "ativa",
         createdAt: new Date().toISOString(),
       });
@@ -184,19 +294,43 @@ export default function Fazendas() {
 
               <input
                 type="text"
-                placeholder="Cidade"
-                value={form.cidade}
-                onChange={(e) => atualizarCampo("cidade", e.target.value)}
+                placeholder="Estado"
+                value={form.estado}
+                onChange={(e) => atualizarEstado(e.target.value)}
+                list="estados-brasileiros"
                 className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
               />
 
+              <datalist id="estados-brasileiros">
+                {estados.map((estado) => (
+                  <option
+                    key={estado.id}
+                    value={`${estado.sigla} - ${estado.nome}`}
+                  />
+                ))}
+              </datalist>
+
               <input
                 type="text"
-                placeholder="Estado"
-                value={form.estado}
-                onChange={(e) => atualizarCampo("estado", e.target.value)}
-                className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700"
+                placeholder={
+                  estadoSelecionado
+                    ? carregandoCidades
+                      ? "Carregando cidades..."
+                      : "Cidade"
+                    : "Selecione o estado primeiro"
+                }
+                value={form.cidade}
+                onChange={(e) => atualizarCampo("cidade", e.target.value)}
+                list="cidades-do-estado"
+                disabled={!estadoSelecionado || carregandoCidades}
+                className="border border-gray-200 rounded-2xl p-4 outline-none focus:border-green-700 disabled:bg-gray-100 disabled:text-gray-500"
               />
+
+              <datalist id="cidades-do-estado">
+                {cidades.map((cidade) => (
+                  <option key={cidade.id} value={cidade.nome} />
+                ))}
+              </datalist>
 
               <input
                 type="text"
