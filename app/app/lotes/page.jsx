@@ -7,7 +7,6 @@ import AppHeader from "../AppHeader";
 
 const formLoteInicial = {
   numeroLote: "",
-  nome: "",
   fazenda: "",
   dataCriacao: "",
   finalidade: "",
@@ -139,20 +138,22 @@ export default function LotesPiquetes() {
   }
 
   async function salvarLote() {
-    if (!formLote.nome) {
-      alert("Preencha o nome do lote.");
+    if (!formLote.numeroLote) {
+      alert("Preencha o numero do lote.");
       return;
     }
 
     if (loteEditando) {
       await db.lotes.update(loteEditando.id, {
         ...formLote,
+        nome: "",
         status: loteEditando.status || "ativo",
       });
       setLoteEditando(null);
     } else {
       await db.lotes.add({
         ...formLote,
+        nome: "",
         status: "ativo",
         createdAt: new Date().toISOString(),
       });
@@ -192,7 +193,6 @@ export default function LotesPiquetes() {
     setLoteEditando(lote);
     setFormLote({
       numeroLote: lote.numeroLote || "",
-      nome: lote.nome || "",
       fazenda: lote.fazenda || "",
       dataCriacao: lote.dataCriacao || "",
       finalidade: lote.finalidade || "",
@@ -296,14 +296,6 @@ export default function LotesPiquetes() {
                   onChange={(e) =>
                     atualizarLote("numeroLote", e.target.value)
                   }
-                  className={inputClass}
-                />
-
-                <input
-                  type="text"
-                  placeholder="Nome do lote"
-                  value={formLote.nome}
-                  onChange={(e) => atualizarLote("nome", e.target.value)}
                   className={inputClass}
                 />
 
@@ -435,8 +427,11 @@ export default function LotesPiquetes() {
                   </option>
 
                   {lotesDisponiveis.map((lote) => (
-                    <option key={lote.id} value={lote.nome}>
-                      {lote.nome}
+                    <option
+                      key={lote.id}
+                      value={lote.numeroLote || lote.nome || ""}
+                    >
+                      Lote {lote.numeroLote || lote.nome}
                     </option>
                   ))}
                 </select>
@@ -517,10 +512,6 @@ export default function LotesPiquetes() {
                             <p className="text-sm font-semibold uppercase tracking-wide text-green-700">
                               Lote {lote.numeroLote || "sem numero"}
                             </p>
-
-                            <h3 className="mt-1 text-xl font-bold text-green-900">
-                              {lote.nome}
-                            </h3>
                           </div>
 
                           <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-green-900 shadow-sm">

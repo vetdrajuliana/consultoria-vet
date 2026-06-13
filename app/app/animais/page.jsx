@@ -101,8 +101,11 @@ piquete: "",
         );
 
         const lotesAtivos = lotesLista
-          .filter((lote) => lote.status !== "deletado" && lote.nome)
-          .map((lote) => lote.nome);
+          .filter(
+            (lote) =>
+              lote.status !== "deletado" && (lote.numeroLote || lote.nome)
+          )
+          .map((lote) => lote.numeroLote || lote.nome);
         const piquetesAtivos = piquetesLista
           .filter((piquete) => piquete.status !== "deletado" && piquete.nome)
           .map((piquete) => piquete.nome);
