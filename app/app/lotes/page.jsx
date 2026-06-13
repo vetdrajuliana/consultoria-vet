@@ -560,7 +560,7 @@ export default function LotesPiquetes() {
                             onClick={() => excluirLote(lote.id)}
                             className="rounded-xl bg-red-100 px-4 py-2 text-sm font-semibold text-red-800 transition-all hover:bg-red-200"
                           >
-                            Excluir
+                            Excluir Lote
                           </button>
                         </div>
                       </article>
@@ -623,7 +623,7 @@ export default function LotesPiquetes() {
                           onClick={() => excluirPiquete(piquete.id)}
                           className="rounded-xl bg-red-100 px-4 py-2 text-sm font-semibold text-red-800 transition-all hover:bg-red-200"
                         >
-                          Excluir
+                          Excluir Piquete
                         </button>
                       </div>
                     </article>

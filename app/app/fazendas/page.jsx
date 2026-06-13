@@ -446,7 +446,7 @@ export default function Fazendas() {
                       onClick={() => excluirFazenda(fazenda.id)}
                       className="bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-xl font-semibold text-sm transition-all"
                     >
-                      Excluir
+                      Excluir Fazenda
                     </button>
                   </div>
                 </div>
