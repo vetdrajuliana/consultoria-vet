@@ -11,6 +11,7 @@ const formLoteInicial = {
   dataCriacao: "",
   finalidade: "",
   piquete: "",
+  piqueteId: "",
   observacoes: "",
 };
 
@@ -108,10 +109,23 @@ export default function LotesPiquetes() {
   }, []);
 
   function atualizarLote(campo, valor) {
+    if (campo === "piqueteId") {
+      const piqueteSelecionado = piquetes.find(
+        (piquete) => String(piquete.id) === valor,
+      );
+
+      setFormLote((formAtual) => ({
+        ...formAtual,
+        piqueteId: valor,
+        piquete: piqueteSelecionado?.nome || "",
+      }));
+      return;
+    }
+
     setFormLote((formAtual) => ({
       ...formAtual,
       [campo]: valor,
-      ...(campo === "fazenda" ? { piquete: "" } : {}),
+      ...(campo === "fazenda" ? { piquete: "", piqueteId: "" } : {}),
     }));
   }
 
@@ -183,6 +197,12 @@ export default function LotesPiquetes() {
   }
 
   function editarLote(lote) {
+    const piqueteAtual = piquetes.find(
+      (piquete) =>
+        piquete.nome === lote.piquete &&
+        (!piquete.fazenda || piquete.fazenda === lote.fazenda),
+    );
+
     setLoteEditando(lote);
     setFormLote({
       numeroLote: lote.numeroLote || "",
@@ -190,6 +210,11 @@ export default function LotesPiquetes() {
       dataCriacao: lote.dataCriacao || "",
       finalidade: lote.finalidade || "",
       piquete: lote.piquete || "",
+      piqueteId: lote.piqueteId
+        ? String(lote.piqueteId)
+        : piqueteAtual
+          ? String(piqueteAtual.id)
+          : "",
       observacoes: lote.observacoes || "",
     });
     setMostrarFormularioLote(true);
@@ -339,8 +364,8 @@ export default function LotesPiquetes() {
                 </select>
 
                 <select
-                  value={formLote.piquete}
-                  onChange={(e) => atualizarLote("piquete", e.target.value)}
+                  value={formLote.piqueteId}
+                  onChange={(e) => atualizarLote("piqueteId", e.target.value)}
                   className={inputClass}
                 >
                   <option value="" disabled hidden>
@@ -348,7 +373,7 @@ export default function LotesPiquetes() {
                   </option>
 
                   {piquetesDisponiveisParaLote.map((piquete) => (
-                    <option key={piquete.id} value={piquete.nome}>
+                    <option key={piquete.id} value={String(piquete.id)}>
                       {piquete.nome}
                     </option>
                   ))}
@@ -598,7 +623,8 @@ export default function LotesPiquetes() {
                     const lotesNoPiquete = lotes.filter(
                       (lote) =>
                         lote.status !== "deletado" &&
-                        lote.piquete === piquete.nome &&
+                        (String(lote.piqueteId || "") === String(piquete.id) ||
+                          lote.piquete === piquete.nome) &&
                         (!piquete.fazenda || lote.fazenda === piquete.fazenda),
                     );
 
