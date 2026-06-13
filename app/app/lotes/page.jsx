@@ -17,7 +17,6 @@ const formLoteInicial = {
 const formPiqueteInicial = {
   nome: "",
   fazenda: "",
-  lote: "",
   area: "",
   capacidade: "",
   observacoes: "",
@@ -40,13 +39,6 @@ export default function LotesPiquetes() {
   const [piqueteEditando, setPiqueteEditando] = useState(null);
   const [formLote, setFormLote] = useState(formLoteInicial);
   const [formPiquete, setFormPiquete] = useState(formPiqueteInicial);
-
-  const lotesDisponiveis = useMemo(() => {
-    if (!formPiquete.fazenda) return lotes;
-    return lotes.filter(
-      (lote) => !lote.fazenda || lote.fazenda === formPiquete.fazenda,
-    );
-  }, [formPiquete.fazenda, lotes]);
 
   const piquetesDisponiveisParaLote = useMemo(() => {
     if (!formLote.fazenda) return piquetes;
@@ -127,7 +119,6 @@ export default function LotesPiquetes() {
     setFormPiquete((formAtual) => ({
       ...formAtual,
       [campo]: valor,
-      ...(campo === "fazenda" ? { lote: "" } : {}),
     }));
   }
 
@@ -209,7 +200,6 @@ export default function LotesPiquetes() {
     setFormPiquete({
       nome: piquete.nome || "",
       fazenda: piquete.fazenda || "",
-      lote: piquete.lote || "",
       area: piquete.area || "",
       capacidade: piquete.capacidade || "",
       observacoes: piquete.observacoes || "",
@@ -442,32 +432,6 @@ export default function LotesPiquetes() {
                   ))}
                 </select>
 
-                <select
-                  value={formPiquete.lote}
-                  onChange={(e) => atualizarPiquete("lote", e.target.value)}
-                  className={inputClass}
-                >
-                  <option value="" disabled hidden>
-                    Lote
-                  </option>
-
-                  {lotesDisponiveis.length === 0 ? (
-                    <option value="" disabled>
-                      Nenhum lote cadastrado
-                    </option>
-                  ) : (
-                    lotesDisponiveis.map((lote) => (
-                      <option
-                        key={lote.id}
-                        value={lote.numeroLote || lote.nome || ""}
-                      >
-                        Lote {lote.numeroLote || lote.nome}
-                        {lote.fazenda ? ` - ${lote.fazenda}` : ""}
-                      </option>
-                    ))
-                  )}
-                </select>
-
                 <input
                   type="number"
                   min="0"
@@ -630,53 +594,72 @@ export default function LotesPiquetes() {
                 </p>
               ) : (
                 <div className="grid gap-5">
-                  {piquetes.map((piquete) => (
-                    <article
-                      key={piquete.id}
-                      className="rounded-3xl border border-green-100 bg-[#f8faf6] p-6"
-                    >
-                      <h3 className="text-xl font-bold text-green-900">
-                        {piquete.nome}
-                      </h3>
+                  {piquetes.map((piquete) => {
+                    const lotesNoPiquete = lotes.filter(
+                      (lote) =>
+                        lote.status !== "deletado" &&
+                        lote.piquete === piquete.nome &&
+                        (!piquete.fazenda || lote.fazenda === piquete.fazenda),
+                    );
 
-                      <p className="mt-2 text-gray-600">
-                        Fazenda: {piquete.fazenda || "Nao informada"}
-                      </p>
+                    return (
+                      <article
+                        key={piquete.id}
+                        className="rounded-3xl border border-green-100 bg-[#f8faf6] p-6"
+                      >
+                        <h3 className="text-xl font-bold text-green-900">
+                          {piquete.nome}
+                        </h3>
 
-                      <p className="mt-1 text-gray-600">
-                        Lote: {piquete.lote || "Nao informado"}
-                      </p>
+                        <p className="mt-2 text-gray-600">
+                          Fazenda: {piquete.fazenda || "Nao informada"}
+                        </p>
 
-                      <p className="mt-1 text-gray-600">
-                        Area:{" "}
-                        {piquete.area ? `${piquete.area} ha` : "Nao informada"}
-                      </p>
+                        <p className="mt-1 text-gray-600">
+                          Lotes no piquete:{" "}
+                          {lotesNoPiquete.length > 0
+                            ? lotesNoPiquete
+                                .map(
+                                  (lote) =>
+                                    `Lote ${lote.numeroLote || lote.nome}`,
+                                )
+                                .join(", ")
+                            : "Nenhum lote no momento"}
+                        </p>
 
-                      <p className="mt-1 text-gray-600">
-                        Capacidade: {piquete.capacidade || "Nao informada"}
-                      </p>
+                        <p className="mt-1 text-gray-600">
+                          Area:{" "}
+                          {piquete.area
+                            ? `${piquete.area} ha`
+                            : "Nao informada"}
+                        </p>
 
-                      <p className="mt-4 inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-800">
-                        {piquete.status || "ativo"}
-                      </p>
+                        <p className="mt-1 text-gray-600">
+                          Capacidade: {piquete.capacidade || "Nao informada"}
+                        </p>
 
-                      <div className="mt-6 flex gap-3">
-                        <button
-                          onClick={() => editarPiquete(piquete)}
-                          className="rounded-xl bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-800 transition-all hover:bg-blue-200"
-                        >
-                          Editar
-                        </button>
+                        <p className="mt-4 inline-block rounded-full bg-green-100 px-4 py-2 text-sm font-semibold text-green-800">
+                          {piquete.status || "ativo"}
+                        </p>
 
-                        <button
-                          onClick={() => excluirPiquete(piquete.id)}
-                          className="rounded-xl bg-red-100 px-4 py-2 text-sm font-semibold text-red-800 transition-all hover:bg-red-200"
-                        >
-                          Excluir Piquete
-                        </button>
-                      </div>
-                    </article>
-                  ))}
+                        <div className="mt-6 flex gap-3">
+                          <button
+                            onClick={() => editarPiquete(piquete)}
+                            className="rounded-xl bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-800 transition-all hover:bg-blue-200"
+                          >
+                            Editar
+                          </button>
+
+                          <button
+                            onClick={() => excluirPiquete(piquete.id)}
+                            className="rounded-xl bg-red-100 px-4 py-2 text-sm font-semibold text-red-800 transition-all hover:bg-red-200"
+                          >
+                            Excluir Piquete
+                          </button>
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
               )}
             </section>
