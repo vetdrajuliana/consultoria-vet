@@ -28,6 +28,12 @@ const inputClass =
 
 const finalidades = ["Entrada", "Saida", "Movimentacao", "Morte"];
 
+function normalizarTexto(valor) {
+  return String(valor || "")
+    .trim()
+    .toLowerCase();
+}
+
 export default function LotesPiquetes() {
   const [fazendas, setFazendas] = useState([]);
   const [lotes, setLotes] = useState([]);
@@ -43,7 +49,11 @@ export default function LotesPiquetes() {
 
   const piquetesDisponiveisParaLote = useMemo(() => {
     if (!formLote.fazenda) return piquetes;
-    return piquetes.filter((piquete) => piquete.fazenda === formLote.fazenda);
+    return piquetes.filter(
+      (piquete) =>
+        !piquete.fazenda ||
+        normalizarTexto(piquete.fazenda) === normalizarTexto(formLote.fazenda),
+    );
   }, [formLote.fazenda, piquetes]);
 
   const quantidadeAnimaisPorLote = useMemo(() => {
@@ -150,17 +160,25 @@ export default function LotesPiquetes() {
       return;
     }
 
+    const piqueteSelecionado = piquetes.find(
+      (piquete) => String(piquete.id) === String(formLote.piqueteId),
+    );
+    const dadosLote = {
+      ...formLote,
+      piqueteId: piqueteSelecionado?.id ? String(piqueteSelecionado.id) : "",
+      piquete: piqueteSelecionado?.nome || formLote.piquete || "",
+      nome: "",
+    };
+
     if (loteEditando) {
       await db.lotes.update(loteEditando.id, {
-        ...formLote,
-        nome: "",
+        ...dadosLote,
         status: loteEditando.status || "ativo",
       });
       setLoteEditando(null);
     } else {
       await db.lotes.add({
-        ...formLote,
-        nome: "",
+        ...dadosLote,
         status: "ativo",
         createdAt: new Date().toISOString(),
       });
@@ -199,8 +217,7 @@ export default function LotesPiquetes() {
   function editarLote(lote) {
     const piqueteAtual = piquetes.find(
       (piquete) =>
-        piquete.nome === lote.piquete &&
-        (!piquete.fazenda || piquete.fazenda === lote.fazenda),
+        normalizarTexto(piquete.nome) === normalizarTexto(lote.piquete),
     );
 
     setLoteEditando(lote);
@@ -624,8 +641,8 @@ export default function LotesPiquetes() {
                       (lote) =>
                         lote.status !== "deletado" &&
                         (String(lote.piqueteId || "") === String(piquete.id) ||
-                          lote.piquete === piquete.nome) &&
-                        (!piquete.fazenda || lote.fazenda === piquete.fazenda),
+                          normalizarTexto(lote.piquete) ===
+                            normalizarTexto(piquete.nome)),
                     );
 
                     return (
