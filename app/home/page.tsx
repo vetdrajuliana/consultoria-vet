@@ -218,14 +218,14 @@ export default function AppPecuariaHome() {
             </div>
           </header>
 
-          <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="inline-flex w-fit rounded-full border border-lime-300/25 bg-white/5 px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-lime-300 md:text-base">
               Tecnologia que gera resultados
             </div>
 
             <Link
               href="/app"
-              className="flex w-fit items-center justify-center gap-5 rounded-xl bg-lime-500 px-9 py-4 text-xl font-bold text-white shadow-xl shadow-lime-900/30 transition hover:bg-lime-400 lg:ml-auto"
+              className="flex w-fit items-center justify-center gap-5 rounded-xl bg-lime-500 px-8 py-3.5 text-xl font-bold text-white shadow-xl shadow-lime-900/30 transition hover:bg-lime-400 lg:ml-auto"
             >
               Área do Cliente
               <span className="text-base font-semibold text-white/80">Acesse sua conta</span>
