@@ -12,7 +12,11 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
   const hideHeader =
-    pathname === "/home" || pathname === "/recursos" || pathname === "/app" || pathname.startsWith("/app/");
+    pathname === "/home" ||
+    pathname === "/recursos" ||
+    pathname === "/contato" ||
+    pathname === "/app" ||
+    pathname.startsWith("/app/");
 
   return (
     <html lang="pt-BR">

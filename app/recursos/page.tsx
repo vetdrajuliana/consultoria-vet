@@ -108,7 +108,7 @@ export default function RecursosPage() {
               <a href="#sobre" className="transition hover:text-lime-300">Sobre</a>
               <a href="#planos" className="transition hover:text-lime-300">Planos</a>
               <a href="#blog" className="transition hover:text-lime-300">Blog</a>
-              <a href="#contato" className="transition hover:text-lime-300">Contato</a>
+              <Link href="/contato" className="transition hover:text-lime-300">Contato</Link>
             </nav>
 
             <Link
