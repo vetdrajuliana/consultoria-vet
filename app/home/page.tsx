@@ -224,7 +224,7 @@ export default function AppPecuariaHome() {
                 Tecnologia que gera resultados
               </div>
 
-              <h1 className="text-5xl font-black leading-[0.95] tracking-tight md:text-[4.35rem] xl:text-[4.7rem]">
+              <h1 className="text-5xl font-black leading-[0.95] tracking-tight md:text-[4rem] xl:text-[4.35rem]">
                 Gestao completa da sua fazenda,
                 <span className="block text-lime-400">na palma da mao.</span>
               </h1>
@@ -238,7 +238,7 @@ export default function AppPecuariaHome() {
             </div>
 
             <div className="relative">
-              <div className="mb-5 flex justify-center lg:justify-start">
+              <div className="mb-5 flex justify-center lg:justify-end">
                 <Link
                   href="/app"
                   className="flex items-center justify-center gap-5 rounded-xl bg-lime-500 px-9 py-4 text-xl font-bold text-white shadow-xl shadow-lime-900/30 transition hover:bg-lime-400"
