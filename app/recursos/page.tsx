@@ -28,12 +28,6 @@ const features = [
   },
 ];
 
-const resourceStats = [
-  ["01", "Cadastre fazendas, piquetes, lotes, animais, pessoas e insumos."],
-  ["02", "Acompanhe cada lote dentro do piquete correto, sem informação desencontrada."],
-  ["03", "Transforme dados de campo em consumo, manejo e relatórios da propriedade."],
-];
-
 function FeatureIcon({ name }: { name: string }) {
   const common = {
     className: "h-11 w-11",
@@ -125,14 +119,12 @@ export default function RecursosPage() {
             </Link>
           </header>
 
-          <div className="grid gap-10 pb-16 pt-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-            <div>
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-lime-300">Recursos PecuarIA</p>
-              <h1 className="mt-5 max-w-3xl text-5xl font-black leading-tight md:text-6xl">
-                Tudo o que você precisa para gerenciar a fazenda em um só lugar.
-              </h1>
-            </div>
-            <p className="max-w-3xl text-xl leading-9 text-white/78">
+          <div className="max-w-5xl pb-12 pt-12 md:pt-14">
+            <p className="text-base font-bold uppercase tracking-[0.2em] text-lime-300">Recursos PecuarIA</p>
+            <h1 className="mt-5 max-w-4xl text-5xl font-black leading-tight md:text-6xl">
+              Tudo o que você precisa para gerenciar a fazenda em um só lugar.
+            </h1>
+            <p className="mt-6 max-w-3xl text-xl leading-9 text-white/78">
               O PecuarIA organiza a rotina da propriedade, conecta cadastros importantes e prepara os dados
               para acompanhar rebanho, lotes, piquetes, nutrição e resultados com mais segurança.
             </p>
@@ -142,7 +134,7 @@ export default function RecursosPage() {
 
       <section className="px-6 pb-20 md:px-14">
         <div className="mx-auto max-w-[1680px]">
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
             {features.map((feature) => (
               <div
                 key={feature.title}
@@ -153,15 +145,6 @@ export default function RecursosPage() {
                 </div>
                 <h2 className="mt-6 text-2xl font-bold text-lime-100">{feature.title}</h2>
                 <p className="mt-3 text-lg leading-8 text-white/72">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 grid overflow-hidden rounded-2xl border border-lime-300/15 bg-white/[0.035] lg:grid-cols-3">
-            {resourceStats.map(([number, text]) => (
-              <div key={number} className="border-lime-300/10 p-7 lg:border-r last:lg:border-r-0">
-                <p className="text-4xl font-black text-lime-400">{number}</p>
-                <p className="mt-4 text-lg leading-8 text-white/78">{text}</p>
               </div>
             ))}
           </div>
