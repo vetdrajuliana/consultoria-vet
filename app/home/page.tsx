@@ -120,7 +120,7 @@ function DashboardMock() {
             <section className="p-4">
               <div className="mb-3 flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-lg font-bold">Bom dia, Juliana!</p>
+                  <p className="text-lg font-bold">Bom dia, Pecuarista!</p>
                   <p className="text-sm text-gray-500">Bem-vinda ao PecuarIA</p>
                 </div>
                 <div className="hidden flex-1 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-500 xl:block">
@@ -234,7 +234,11 @@ export default function AppPecuariaHome() {
                 e tome decisoes mais inteligentes para o sucesso da sua producao.
               </p>
 
-              <div className="mt-5 flex flex-col gap-4 sm:flex-row">
+              <p className="mt-4 text-lg text-white/75">Acesso seguro e seus dados protegidos</p>
+            </div>
+
+            <div className="relative">
+              <div className="mb-5 flex justify-center lg:justify-start">
                 <Link
                   href="/app"
                   className="flex items-center justify-center gap-5 rounded-xl bg-lime-500 px-9 py-4 text-xl font-bold text-white shadow-xl shadow-lime-900/30 transition hover:bg-lime-400"
@@ -243,11 +247,6 @@ export default function AppPecuariaHome() {
                   <span className="text-base font-semibold text-white/80">Acesse sua conta</span>
                 </Link>
               </div>
-
-              <p className="mt-4 text-lg text-white/75">Acesso seguro e seus dados protegidos</p>
-            </div>
-
-            <div className="relative">
               <DashboardMock />
             </div>
           </div>
