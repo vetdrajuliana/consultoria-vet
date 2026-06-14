@@ -3,29 +3,35 @@ import Link from "next/link";
 const features = [
   {
     title: "Gestão de Animais",
-    description: "Controle completo do rebanho, nascimento, peso, sanidade e muito mais.",
+    description: "Cadastro individual, controle do rebanho, histórico, peso, categoria e movimentações.",
     icon: "cow",
   },
   {
     title: "Lotes e Piquetes",
-    description: "Organize lotes, piquetes e localizacoes de forma simples e eficiente.",
+    description: "Organize os lotes, acompanhe onde cada grupo está e veja a lotação dos piquetes.",
     icon: "grid",
   },
   {
-    title: "Nutricao e Consumo",
-    description: "Acompanhe o consumo de alimentos e otimize sua dieta para melhores resultados.",
+    title: "Nutrição e Consumo",
+    description: "Planeje dietas, acompanhe tratos, consumo por lote e ajustes da leitura de cocho.",
     icon: "feed",
   },
   {
-    title: "Indicadores e Relatorios",
-    description: "Relatorios completos com indicadores para decisoes do dia a dia.",
+    title: "Indicadores e Relatórios",
+    description: "Tenha uma visão rápida da fazenda com dados para tomar decisões no dia a dia.",
     icon: "chart",
   },
   {
     title: "Seguro e na Nuvem",
-    description: "Seus dados protegidos e disponiveis de qualquer lugar, a qualquer hora.",
+    description: "Seus dados protegidos, organizados e disponíveis para consulta quando precisar.",
     icon: "cloud",
   },
+];
+
+const resourceStats = [
+  ["01", "Cadastre fazendas, piquetes, lotes, animais, pessoas e insumos."],
+  ["02", "Acompanhe cada lote dentro do piquete correto, sem informação desencontrada."],
+  ["03", "Transforme dados de campo em consumo, manejo e relatórios da propriedade."],
 ];
 
 function FeatureIcon({ name }: { name: string }) {
@@ -254,23 +260,41 @@ export default function AppPecuariaHome() {
         </div>
       </section>
 
-      <section id="recursos" className="relative z-10 border-t border-lime-300/10 bg-[#002414] px-6 pb-14 md:px-14">
-        <div className="mx-auto max-w-[1780px]">
-          <h2 className="pt-6 text-center text-3xl font-semibold md:text-4xl">
-            Tudo o que voce precisa em um so lugar
-          </h2>
-          <div className="mx-auto mt-3 h-px w-12 bg-lime-400" />
+      <section id="recursos" className="relative z-10 border-t border-lime-300/10 bg-[#002414] px-6 py-20 md:px-14">
+        <div className="mx-auto max-w-[1680px]">
+          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+            <div>
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-lime-300">Recursos</p>
+              <h2 className="mt-4 max-w-2xl text-4xl font-black leading-tight md:text-5xl">
+                Tudo o que você precisa para gerenciar a fazenda em um só lugar.
+              </h2>
+            </div>
+            <p className="max-w-3xl text-xl leading-9 text-white/78">
+              O PecuarIA organiza a rotina da propriedade, conecta cadastros importantes e prepara os dados
+              para acompanhar rebanho, lotes, piquetes, nutrição e resultados com mais segurança.
+            </p>
+          </div>
 
-          <div className="mt-10 grid gap-8 md:grid-cols-2 xl:grid-cols-5">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
             {features.map((feature) => (
-              <div key={feature.title} className="flex gap-5">
-                <div className="grid h-24 w-24 shrink-0 place-items-center rounded-2xl border border-lime-300/25 text-lime-300">
+              <div
+                key={feature.title}
+                className="rounded-2xl border border-lime-300/15 bg-white/[0.04] p-6 shadow-xl shadow-black/10"
+              >
+                <div className="grid h-20 w-20 place-items-center rounded-2xl border border-lime-300/25 bg-lime-300/5 text-lime-300">
                   <FeatureIcon name={feature.icon} />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-lime-200">{feature.title}</h3>
-                  <p className="mt-2 text-base leading-7 text-white/75">{feature.description}</p>
-                </div>
+                <h3 className="mt-6 text-2xl font-bold text-lime-100">{feature.title}</h3>
+                <p className="mt-3 text-lg leading-8 text-white/72">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 grid overflow-hidden rounded-2xl border border-lime-300/15 bg-white/[0.035] lg:grid-cols-3">
+            {resourceStats.map(([number, text]) => (
+              <div key={number} className="border-lime-300/10 p-7 lg:border-r last:lg:border-r-0">
+                <p className="text-4xl font-black text-lime-400">{number}</p>
+                <p className="mt-4 text-lg leading-8 text-white/78">{text}</p>
               </div>
             ))}
           </div>
@@ -278,7 +302,7 @@ export default function AppPecuariaHome() {
           <footer className="mt-12 flex flex-col gap-6 rounded-2xl border border-lime-300/15 bg-white/[0.03] p-8 text-lg text-white/80 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="font-semibold">Mais tecnologia. Mais produtividade.</p>
-              <p className="mt-1 text-lime-300">Melhores resultados para o seu negocio.</p>
+              <p className="mt-1 text-lime-300">Melhores resultados para o seu negócio.</p>
             </div>
             <p className="text-base">© 2026 PecuarIA. Todos os direitos reservados.</p>
           </footer>
