@@ -233,7 +233,7 @@ export default function AppPecuariaHome() {
           </div>
 
           <div className="grid flex-1 items-center gap-8 py-2 lg:grid-cols-[0.88fr_1.12fr]">
-            <div className="max-w-2xl">
+            <div className="-mt-4 max-w-2xl lg:-mt-6">
               <h1 className="text-5xl font-black leading-[0.95] tracking-tight md:text-[4rem] xl:text-[4.35rem]">
                 Gestão completa da sua fazenda,
                 <span className="block text-lime-400">na palma da mão.</span>
