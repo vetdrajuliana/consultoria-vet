@@ -105,7 +105,7 @@ export default function RecursosPage() {
 
             <nav className="hidden items-center gap-9 text-lg font-semibold text-white/90 lg:flex">
               <Link href="/recursos" className="text-lime-300">Recursos</Link>
-              <a href="#sobre" className="transition hover:text-lime-300">Sobre</a>
+              <Link href="/sobre" className="transition hover:text-lime-300">Sobre</Link>
               <a href="#planos" className="transition hover:text-lime-300">Planos</a>
               <a href="#blog" className="transition hover:text-lime-300">Blog</a>
               <Link href="/contato" className="transition hover:text-lime-300">Contato</Link>
