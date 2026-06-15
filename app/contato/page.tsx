@@ -55,34 +55,34 @@ export default function ContatoPage() {
             </Link>
           </header>
 
-          <div className="grid flex-1 gap-10 py-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div className="grid flex-1 gap-8 pt-7 pb-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div className="max-w-3xl">
               <p className="text-base font-bold uppercase tracking-[0.2em] text-lime-300">Contato</p>
-              <h1 className="mt-5 text-5xl font-black leading-tight md:text-6xl">
+              <h1 className="mt-4 text-4xl font-black leading-tight md:text-5xl xl:text-6xl">
                 Vamos conversar sobre a gestão da sua fazenda.
               </h1>
-              <p className="mt-6 max-w-2xl text-xl leading-9 text-white/78">
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-white/78 xl:text-xl">
                 Entre em contato para tirar dúvidas, pedir ajuda no acesso ao app ou entender como o PecuarIA
                 pode organizar os dados da sua propriedade.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-lime-300/15 bg-white/[0.05] p-6 shadow-2xl shadow-black/25 backdrop-blur">
-              <div className="grid gap-5">
+            <div className="rounded-2xl border border-lime-300/15 bg-white/[0.05] p-5 shadow-2xl shadow-black/25 backdrop-blur">
+              <div className="grid gap-4">
                 {contactCards.map((card) => (
                   <Link
                     key={card.title}
                     href={card.href}
-                    className="block rounded-2xl border border-lime-300/15 bg-[#002414]/70 p-6 transition hover:border-lime-300/40 hover:bg-[#06351f]/80"
+                    className="block rounded-2xl border border-lime-300/15 bg-[#002414]/70 p-5 transition hover:border-lime-300/40 hover:bg-[#06351f]/80"
                   >
-                    <p className="text-2xl font-bold text-lime-100">{card.title}</p>
-                    <p className="mt-3 text-lg leading-8 text-white/72">{card.description}</p>
-                    <p className="mt-5 text-xl font-black text-lime-300">{card.value}</p>
+                    <p className="text-xl font-bold text-lime-100">{card.title}</p>
+                    <p className="mt-2 text-base leading-7 text-white/72">{card.description}</p>
+                    <p className="mt-3 text-lg font-black text-lime-300">{card.value}</p>
                   </Link>
                 ))}
               </div>
 
-              <div className="mt-6 rounded-2xl border border-lime-300/15 bg-lime-300/10 p-6">
+              <div className="mt-4 rounded-2xl border border-lime-300/15 bg-lime-300/10 p-5">
                 <p className="text-lg font-semibold text-lime-100">Atendimento seguro e direto.</p>
                 <p className="mt-2 text-base leading-7 text-white/70">
                   A equipe responde pelo WhatsApp e orienta os próximos passos para uso do app.
