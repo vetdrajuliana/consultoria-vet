@@ -12,6 +12,7 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
   const hideHeader =
+    pathname === "/" ||
     pathname === "/home" ||
     pathname === "/recursos" ||
     pathname === "/contato" ||
