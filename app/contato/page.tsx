@@ -82,12 +82,6 @@ export default function ContatoPage() {
                 ))}
               </div>
 
-              <div className="mt-3 rounded-2xl border border-lime-300/15 bg-lime-300/10 p-4">
-                <p className="text-base font-semibold text-lime-100">Atendimento seguro e direto.</p>
-                <p className="mt-1 text-sm leading-6 text-white/70">
-                  A equipe responde pelo WhatsApp e orienta os próximos passos para uso do app.
-                </p>
-              </div>
             </div>
           </div>
         </div>
