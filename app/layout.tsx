@@ -15,6 +15,7 @@ export default function RootLayout({
     pathname === "/" ||
     pathname === "/home" ||
     pathname === "/recursos" ||
+    pathname === "/sobre" ||
     pathname === "/contato" ||
     pathname === "/app" ||
     pathname.startsWith("/app/");

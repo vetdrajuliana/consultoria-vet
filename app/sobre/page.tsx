@@ -1,72 +1,123 @@
+import Link from "next/link";
+
+const pillars = [
+  {
+    title: "Dados organizados",
+    description:
+      "Cadastros, lotes, animais e manejos em um lugar simples de consultar.",
+  },
+  {
+    title: "Decisao no campo",
+    description:
+      "Indicadores claros para acompanhar consumo, rebanho e resultado da fazenda.",
+  },
+  {
+    title: "Uso seguro",
+    description:
+      "Acesso direto ao app, com rotina pensada para o trabalho real da propriedade.",
+  },
+];
+
 export default function Sobre() {
   return (
-    <main className="bg-white min-h-screen overflow-x-hidden">
+    <main className="min-h-screen overflow-hidden bg-[#002414] text-white">
+      <section className="relative min-h-screen">
+        <img
+          src="/app-login-bg.png"
+          alt="Gado em pastagem ao por do sol"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#001d10] via-[#001d10]/92 to-[#001d10]/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#002414] via-transparent to-black/25" />
 
-      <section className="relative min-h-[85vh] flex items-center px-6 md:px-16 py-16 overflow-hidden">
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-[1680px] flex-col px-6 py-3 md:px-12">
+          <header className="flex flex-wrap items-center justify-between gap-4">
+            <Link href="/" className="block">
+              <img
+                src="/pecuaria-logo-menu.png"
+                alt="PecuarIA"
+                className="h-14 w-auto md:h-16 xl:h-20"
+              />
+            </Link>
 
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center w-full">
+            <nav className="hidden items-center gap-8 text-base font-semibold text-white/90 lg:flex">
+              <Link href="/recursos" className="transition hover:text-lime-300">
+                Recursos
+              </Link>
+              <Link href="/sobre" className="text-lime-300">
+                Sobre
+              </Link>
+              <a href="#planos" className="transition hover:text-lime-300">
+                Planos
+              </a>
+              <a href="#blog" className="transition hover:text-lime-300">
+                Blog
+              </a>
+              <Link href="/contato" className="transition hover:text-lime-300">
+                Contato
+              </Link>
+            </nav>
 
-          <div>
-
-            <p className="text-green-700 text-xl md:text-2xl font-semibold mb-6">
-              Sobre
-            </p>
-
-            <h1
-              className="text-4xl md:text-6xl font-bold leading-tight text-[#1f2933]"
-              style={{ fontFamily: "Georgia, serif" }}
+            <Link
+              href="/app"
+              className="rounded-xl bg-lime-500 px-6 py-3 text-base font-bold text-white shadow-xl shadow-lime-900/30 transition hover:bg-lime-400"
             >
-              Excelência técnica
-              <br />
-              no campo
-            </h1>
+              Area do Cliente
+            </Link>
+          </header>
 
-            <p className="mt-10 text-lg md:text-xl leading-9 text-gray-700">
-              Dra. Juliana Moraes é médica veterinária, natural de Goiânia,
-              formada em 2019 pelo Instituto Federal Goiano, e atua há mais
-              de 11 anos no setor pecuário.
-            </p>
+          <div className="grid flex-1 gap-8 py-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-lime-300">
+                Sobre
+              </p>
 
-            <p className="mt-6 text-lg md:text-xl leading-9 text-gray-700">
-              Possui ampla experiência clínica em animais de produção,
-              aliando conhecimento técnico à vivência prática no campo,
-              sempre com uma atuação próxima da realidade do produtor rural.
-            </p>
+              <h1 className="mt-4 text-4xl font-black leading-tight md:text-5xl xl:text-[3.55rem]">
+                Tecnologia para transformar a gestao da sua fazenda.
+              </h1>
 
-            <p className="mt-6 text-lg md:text-xl leading-9 text-gray-700">
-              Seu trabalho é pautado em levar ciência, tecnologia e soluções
-              estratégicas para a pecuária de forma acessível, atendendo desde
-              grandes propriedades até pequenos produtores, com foco em resultados,
-              bem-estar animal e eficiência produtiva.
-            </p>
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-white/78 xl:text-xl">
+                O PecuarIA nasceu para facilitar a rotina do pecuarista,
+                reunindo informacoes da propriedade em uma plataforma visual,
+                pratica e preparada para decisoes mais inteligentes.
+              </p>
+            </div>
 
-            <a
-              href="https://wa.me/5562998577635"
-              target="_blank"
-              className="inline-flex items-center gap-3 mt-10 bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-green-800 transition-all duration-300 shadow-lg"
-            >
-              Solicitar Serviços
-              <span>→</span>
-            </a>
+            <div className="rounded-2xl border border-lime-300/15 bg-white/[0.05] p-5 shadow-2xl shadow-black/25 backdrop-blur">
+              <div className="grid gap-4">
+                {pillars.map((pillar) => (
+                  <article
+                    key={pillar.title}
+                    className="rounded-2xl border border-lime-300/15 bg-[#002414]/70 p-5"
+                  >
+                    <p className="text-xl font-bold text-lime-100">
+                      {pillar.title}
+                    </p>
+                    <p className="mt-2 text-base leading-7 text-white/72">
+                      {pillar.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
 
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/app"
+                  className="rounded-xl bg-lime-500 px-6 py-3 text-center text-base font-bold text-white transition hover:bg-lime-400"
+                >
+                  Acessar aplicativo
+                </Link>
+                <Link
+                  href="/contato"
+                  className="rounded-xl border border-lime-300/30 px-6 py-3 text-center text-base font-bold text-lime-100 transition hover:border-lime-300/70"
+                >
+                  Falar com a equipe
+                </Link>
+              </div>
+            </div>
           </div>
-
-          <div className="relative flex justify-center overflow-hidden -mt-6 md:-mt-12">
-
-            <div className="absolute top-0 left-6 w-44 h-44 bg-green-200 rounded-[40px] opacity-60"></div>
-
-            <img
-              src="https://fqpswxyjssiaqpvmgngg.supabase.co/storage/v1/object/public/Servicos/WhatsApp%20Image%202026-05-10%20at%2012.20.47.jpeg"
-              alt="Dra. Juliana Moraes"
-              className="relative z-10 max-w-full h-[600px] object-cover rounded-[50px] shadow-2xl"
-            />
-
-          </div>
-
         </div>
-
       </section>
-
     </main>
-  )
+  );
 }
