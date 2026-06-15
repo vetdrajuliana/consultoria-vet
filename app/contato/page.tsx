@@ -23,8 +23,8 @@ const contactCards = [
 
 export default function ContatoPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#002414] text-white">
-      <section className="relative min-h-screen">
+    <main className="h-screen overflow-hidden bg-[#002414] text-white">
+      <section className="relative h-screen">
         <img
           src="/app-login-bg.png"
           alt="Gado em pastagem ao por do sol"
@@ -33,13 +33,13 @@ export default function ContatoPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#001d10] via-[#001d10]/92 to-[#001d10]/35" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#002414] via-transparent to-black/25" />
 
-        <div className="relative z-10 mx-auto flex min-h-screen max-w-[1680px] flex-col px-6 py-4 md:px-12">
-          <header className="flex flex-wrap items-center justify-between gap-5">
+        <div className="relative z-10 mx-auto flex h-screen max-w-[1680px] flex-col px-6 py-3 md:px-12">
+          <header className="flex flex-wrap items-center justify-between gap-4">
             <Link href="/home" className="block">
-              <img src="/pecuaria-logo-menu.png" alt="PecuarIA" className="h-20 w-auto md:h-24 xl:h-28" />
+              <img src="/pecuaria-logo-menu.png" alt="PecuarIA" className="h-14 w-auto md:h-16 xl:h-20" />
             </Link>
 
-            <nav className="hidden items-center gap-9 text-lg font-semibold text-white/90 lg:flex">
+            <nav className="hidden items-center gap-8 text-base font-semibold text-white/90 lg:flex">
               <Link href="/recursos" className="transition hover:text-lime-300">Recursos</Link>
               <a href="#sobre" className="transition hover:text-lime-300">Sobre</a>
               <a href="#planos" className="transition hover:text-lime-300">Planos</a>
@@ -49,42 +49,42 @@ export default function ContatoPage() {
 
             <Link
               href="/app"
-              className="rounded-xl bg-lime-500 px-7 py-3 text-lg font-bold text-white shadow-xl shadow-lime-900/30 transition hover:bg-lime-400"
+              className="rounded-xl bg-lime-500 px-6 py-3 text-base font-bold text-white shadow-xl shadow-lime-900/30 transition hover:bg-lime-400"
             >
               Área do Cliente
             </Link>
           </header>
 
-          <div className="grid flex-1 gap-8 pt-7 pb-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="grid flex-1 gap-6 pt-5 pb-3 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div className="max-w-3xl">
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-lime-300">Contato</p>
-              <h1 className="mt-4 text-4xl font-black leading-tight md:text-5xl xl:text-6xl">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-lime-300">Contato</p>
+              <h1 className="mt-4 text-4xl font-black leading-tight md:text-5xl xl:text-[3.35rem]">
                 Vamos conversar sobre a gestão da sua fazenda.
               </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-white/78 xl:text-xl">
+              <p className="mt-4 max-w-2xl text-base leading-7 text-white/78 xl:text-lg">
                 Entre em contato para tirar dúvidas, pedir ajuda no acesso ao app ou entender como o PecuarIA
                 pode organizar os dados da sua propriedade.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-lime-300/15 bg-white/[0.05] p-5 shadow-2xl shadow-black/25 backdrop-blur">
-              <div className="grid gap-4">
+            <div className="rounded-2xl border border-lime-300/15 bg-white/[0.05] p-4 shadow-2xl shadow-black/25 backdrop-blur">
+              <div className="grid gap-3">
                 {contactCards.map((card) => (
                   <Link
                     key={card.title}
                     href={card.href}
-                    className="block rounded-2xl border border-lime-300/15 bg-[#002414]/70 p-5 transition hover:border-lime-300/40 hover:bg-[#06351f]/80"
+                    className="block rounded-2xl border border-lime-300/15 bg-[#002414]/70 p-4 transition hover:border-lime-300/40 hover:bg-[#06351f]/80"
                   >
-                    <p className="text-xl font-bold text-lime-100">{card.title}</p>
-                    <p className="mt-2 text-base leading-7 text-white/72">{card.description}</p>
-                    <p className="mt-3 text-lg font-black text-lime-300">{card.value}</p>
+                    <p className="text-lg font-bold text-lime-100">{card.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-white/72">{card.description}</p>
+                    <p className="mt-2 text-base font-black text-lime-300">{card.value}</p>
                   </Link>
                 ))}
               </div>
 
-              <div className="mt-4 rounded-2xl border border-lime-300/15 bg-lime-300/10 p-5">
-                <p className="text-lg font-semibold text-lime-100">Atendimento seguro e direto.</p>
-                <p className="mt-2 text-base leading-7 text-white/70">
+              <div className="mt-3 rounded-2xl border border-lime-300/15 bg-lime-300/10 p-4">
+                <p className="text-base font-semibold text-lime-100">Atendimento seguro e direto.</p>
+                <p className="mt-1 text-sm leading-6 text-white/70">
                   A equipe responde pelo WhatsApp e orienta os próximos passos para uso do app.
                 </p>
               </div>
